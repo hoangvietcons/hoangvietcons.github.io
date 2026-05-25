@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xây Dựng Dân Dụng – HoangViet Construction</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #C8102E;
+  --red-dark: #A00C24;
+  --dark: #1A1A1A;
+  --mid: #3C3C3C;
+  --gray: #6B6B6B;
+  --light: #F4F4F4;
+  --border: #E5E5E5;
+  --white: #FFFFFF;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; color: var(--dark); background: var(--white); overflow-x: hidden; }
+
+/* NAV */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: var(--white); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 60px; height: 72px;
+  box-shadow: 0 1px 12px rgba(0,0,0,0.06);
+}
+.nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.nav-logo-mark {
+  width: 40px; height: 40px; background: var(--red);
+  display: flex; align-items: center; justify-content: center;
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 75% 100%, 0 100%);
+}
+.nav-logo-text { font-size: 18px; font-weight: 800; letter-spacing: 1.5px; color: var(--dark); text-transform: uppercase; }
+.nav-logo-text span { color: var(--red); }
+.nav-links { display: flex; align-items: center; gap: 0; }
+.nav-links a {
+  padding: 0 20px; height: 72px; display: flex; align-items: center;
+  font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--mid); text-decoration: none;
+  border-bottom: 3px solid transparent; transition: color 0.2s, border-color 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--red); border-bottom-color: var(--red); }
+.nav-back {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--light); color: var(--mid) !important;
+  padding: 10px 20px !important; height: auto !important; border: none !important;
+  font-weight: 700 !important; margin-right: 12px;
+  transition: background 0.2s !important;
+}
+.nav-back:hover { background: var(--border) !important; color: var(--dark) !important; }
+.nav-cta {
+  background: var(--red); color: var(--white) !important;
+  padding: 10px 24px !important; height: auto !important; border: none !important;
+  font-weight: 700 !important;
+}
+.nav-cta:hover { background: var(--red-dark) !important; }
+
+/* HERO */
+.hero {
+  margin-top: 72px;
+  height: 520px;
+  background: var(--dark);
+  position: relative; display: flex; align-items: flex-end;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(200,16,46,0.03) 40px, rgba(200,16,46,0.03) 41px);
+}
+.hero-watermark {
+  position: absolute; right: -10px; bottom: -20px;
+  font-size: 200px; font-weight: 900; letter-spacing: -8px;
+  color: rgba(255,255,255,0.025); user-select: none; pointer-events: none; line-height: 1;
+}
+.hero-content { position: relative; z-index: 2; padding: 0 60px 60px; }
+.breadcrumb {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+}
+.breadcrumb a { font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--red); }
+.breadcrumb span { color: rgba(255,255,255,0.2); font-size: 12px; }
+.breadcrumb .current { font-size: 12px; color: var(--red); font-weight: 600; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--red); padding: 6px 16px; margin-bottom: 20px;
+}
+.hero-tag span { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: white; }
+.hero h1 {
+  font-size: clamp(40px, 6vw, 80px); font-weight: 900;
+  text-transform: uppercase; letter-spacing: -1px; line-height: 1.05; color: var(--white);
+  max-width: 700px;
+}
+.hero h1 em { color: var(--red); font-style: normal; }
+.hero-sub {
+  margin-top: 20px; font-size: 15px; color: rgba(255,255,255,0.5);
+  font-weight: 300; max-width: 500px; line-height: 1.7;
+}
+
+/* QUICK STATS */
+.quick-stats {
+  background: var(--red);
+  display: grid; grid-template-columns: repeat(4, 1fr);
+}
+.qs-item {
+  padding: 30px 40px; text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.15);
+}
+.qs-item:last-child { border-right: none; }
+.qs-num { font-size: 38px; font-weight: 900; color: white; line-height: 1; }
+.qs-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-top: 6px; }
+
+/* SECTIONS */
+.section { padding: 100px 60px; }
+.section.gray { background: var(--light); }
+
+.section-tag { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.section-tag-bar { width: 32px; height: 3px; background: var(--red); }
+.section-tag-text { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--red); }
+
+.section-title {
+  font-size: clamp(28px, 4vw, 46px); font-weight: 800;
+  text-transform: uppercase; letter-spacing: -0.5px; line-height: 1.1;
+  margin-bottom: 20px;
+}
+.section-desc { font-size: 15px; color: var(--gray); line-height: 1.85; font-weight: 300; max-width: 640px; }
+
+/* LOẠI HÌNH XÂY DỰNG */
+.types-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 3px; margin-top: 60px;
+}
+.type-card {
+  background: var(--white); position: relative; overflow: hidden;
+  cursor: pointer; transition: all 0.35s ease;
+  border-bottom: 3px solid transparent;
+}
+.type-card:hover { border-bottom-color: var(--red); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+.type-thumb {
+  width: 100%; aspect-ratio: 4/3;
+  background: var(--light); position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.type-icon-big { font-size: 80px; opacity: 0.12; }
+.type-label-bar {
+  position: absolute; top: 16px; left: 0;
+  background: var(--red); padding: 6px 16px;
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: white;
+}
+.type-body { padding: 28px 28px 32px; }
+.type-body h3 { font-size: 17px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+.type-body p { font-size: 13px; color: var(--gray); line-height: 1.75; font-weight: 300; margin-bottom: 16px; }
+.type-features { list-style: none; }
+.type-features li {
+  font-size: 12px; color: var(--mid); padding: 5px 0;
+  border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px;
+}
+.type-features li:last-child { border-bottom: none; }
+.type-features li::before { content: '✓'; color: var(--red); font-weight: 700; font-size: 11px; }
+
+/* QUY TRÌNH */
+.process { margin-top: 60px; }
+.process-steps {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 0; position: relative;
+}
+.process-steps::before {
+  content: '';
+  position: absolute; top: 36px; left: 10%; right: 10%; height: 2px;
+  background: var(--border); z-index: 0;
+}
+.process-step { text-align: center; position: relative; z-index: 1; padding: 0 16px; }
+.step-circle {
+  width: 72px; height: 72px; margin: 0 auto 20px;
+  background: var(--white); border: 2px solid var(--border);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 900; color: var(--gray);
+  transition: all 0.3s;
+}
+.process-step:hover .step-circle { background: var(--red); border-color: var(--red); color: white; }
+.step-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.step-desc { font-size: 12px; color: var(--gray); line-height: 1.6; font-weight: 300; }
+
+/* CAM KẾT */
+.commitments { margin-top: 60px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.commit-item {
+  display: flex; gap: 20px; align-items: flex-start;
+  padding: 28px; background: var(--white);
+  border-left: 3px solid var(--red); transition: box-shadow 0.3s;
+}
+.commit-item:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.commit-icon { font-size: 28px; flex-shrink: 0; }
+.commit-item h4 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.commit-item p { font-size: 13px; color: var(--gray); line-height: 1.65; font-weight: 300; }
+
+/* CTA SECTION */
+.cta-section {
+  background: var(--dark); padding: 80px 60px;
+  display: flex; align-items: center; justify-content: space-between; gap: 40px;
+}
+.cta-text h2 { font-size: 36px; font-weight: 800; text-transform: uppercase; color: white; letter-spacing: -0.5px; margin-bottom: 12px; }
+.cta-text p { font-size: 14px; color: rgba(255,255,255,0.5); max-width: 480px; line-height: 1.7; font-weight: 300; }
+.cta-actions { display: flex; gap: 16px; flex-shrink: 0; }
+.btn-red {
+  background: var(--red); color: white; padding: 16px 36px;
+  font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  text-decoration: none; display: inline-block; transition: all 0.2s;
+}
+.btn-red:hover { background: var(--red-dark); transform: translateY(-2px); }
+.btn-outline {
+  background: transparent; color: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.2); padding: 16px 36px;
+  font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  text-decoration: none; display: inline-block; transition: all 0.2s;
+}
+.btn-outline:hover { border-color: white; color: white; }
+
+/* FOOTER */
+footer {
+  background: var(--dark); padding: 32px 60px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex; justify-content: space-between; align-items: center;
+}
+footer p { font-size: 12px; color: rgba(255,255,255,0.25); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 12px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--red); }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 1024px) {
+  .navbar { padding: 0 20px; }
+  .nav-links a:not(.nav-back):not(.nav-cta) { display: none; }
+  .hero { height: auto; padding-top: 0; }
+  .hero-content { padding: 40px 20px 40px; }
+  .hero-watermark { display: none; }
+  .quick-stats { grid-template-columns: repeat(2, 1fr); }
+  .section { padding: 60px 20px; }
+  .process-steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .commitments { grid-template-columns: 1fr; }
+  .cta-section { flex-direction: column; padding: 60px 20px; text-align: center; }
+  .cta-actions { flex-direction: column; width: 100%; }
+  footer { flex-direction: column; gap: 16px; padding: 24px 20px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a class="nav-logo" href="index.html">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 22 22" fill="none" width="20"><path d="M4 18V8L11 3L18 8V18H13V13H9V18H4Z" fill="white"/></svg>
+    </div>
+    <div class="nav-logo-text">VIET<span>CONSTRUCTION</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-back">← Trang Chủ</a>
+    <a href="index.html#about">Về Chúng Tôi</a>
+    <a href="tu-van-thiet-ke.html">Tư Vấn Thiết Kế</a>
+    <a href="xaydungdandung.html" class="active">Xây Dựng Dân Dụng</a>
+    <a href="index.html#contact" class="nav-cta">Báo Giá</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-watermark">DÂN DỤNG</div>
+  <div class="hero-content">
+    <div class="breadcrumb">
+      <a href="index.html">Trang Chủ</a>
+      <span>/</span>
+      <a href="index.html#services">Dịch Vụ</a>
+      <span>/</span>
+      <span class="current">Xây Dựng Dân Dụng</span>
+    </div>
+    <div class="hero-tag"><span>Dịch Vụ Chủ Lực</span></div>
+    <h1>XÂY DỰNG<br><em>DÂN DỤNG</em></h1>
+    <p class="hero-sub">Thi công nhà ở, biệt thự, chung cư từ móng đến hoàn thiện — đảm bảo kết cấu bền vững, thẩm mỹ và đúng tiến độ cam kết.</p>
+  </div>
+</section>
+
+<!-- QUICK STATS -->
+<div class="quick-stats">
+  <div class="qs-item"><div class="qs-num">350+</div><div class="qs-label">Công Trình Dân Dụng</div></div>
+  <div class="qs-item"><div class="qs-num">18</div><div class="qs-label">Năm Kinh Nghiệm</div></div>
+  <div class="qs-item"><div class="qs-num">5</div><div class="qs-label">Năm Bảo Hành</div></div>
+  <div class="qs-item"><div class="qs-num">99%</div><div class="qs-label">Khách Hàng Hài Lòng</div></div>
+</div>
+
+<!-- LOẠI HÌNH -->
+<section class="section">
+  <div class="reveal">
+    <div class="section-tag"><div class="section-tag-bar"></div><span class="section-tag-text">Phân Loại Công Trình</span></div>
+    <h2 class="section-title">CHÚNG TÔI THI CÔNG<br>NHỮNG LOẠI CÔNG TRÌNH NÀO?</h2>
+    <p class="section-desc">Viet Construction nhận thi công đa dạng các loại công trình dân dụng — từ nhà phố đơn giản đến biệt thự cao cấp và khu chung cư quy mô lớn.</p>
+  </div>
+  <div class="types-grid">
+    <div class="type-card reveal reveal-delay-1">
+      <div class="type-thumb" style="background:linear-gradient(135deg,#f0f0f0,#e0e0e0)">
+        <span class="type-icon-big">🏠</span>
+        <div class="type-label-bar">Phổ biến nhất</div>
+      </div>
+      <div class="type-body">
+        <h3>Nhà Phố & Nhà Liền Kề</h3>
+        <p>Thi công nhà phố 1–5 tầng với đầy đủ hệ thống kết cấu, điện nước, hoàn thiện nội ngoại thất theo bản vẽ thiết kế được duyệt.</p>
+        <ul class="type-features">
+          <li>Diện tích từ 40m² đến 300m²</li>
+          <li>Tầng hầm, sân thượng, sân vườn</li>
+          <li>Hệ thống PCCC, chống thấm</li>
+          <li>Hoàn thiện sơn, gạch, trần thạch cao</li>
+        </ul>
+      </div>
+    </div>
+    <div class="type-card reveal reveal-delay-2">
+      <div class="type-thumb" style="background:linear-gradient(135deg,#ece8e0,#ddd8cc)">
+        <span class="type-icon-big">🏡</span>
+        <div class="type-label-bar">Cao cấp</div>
+      </div>
+      <div class="type-body">
+        <h3>Biệt Thự & Villa</h3>
+        <p>Thi công biệt thự đơn lập, song lập và liên kề với tiêu chuẩn vật liệu cao cấp, thiết kế kiến trúc đẳng cấp, cảnh quan hài hòa.</p>
+        <ul class="type-features">
+          <li>Diện tích từ 200m² đến 2.000m²</li>
+          <li>Hồ bơi, garage, sân vườn cảnh quan</li>
+          <li>Vật liệu nhập khẩu theo yêu cầu</li>
+          <li>Giám sát kỹ thuật chuyên biệt</li>
+        </ul>
+      </div>
+    </div>
+    <div class="type-card reveal reveal-delay-3">
+      <div class="type-thumb" style="background:linear-gradient(135deg,#e8eef2,#d8e4ea)">
+        <span class="type-icon-big">🏢</span>
+        <div class="type-label-bar">Quy mô lớn</div>
+      </div>
+      <div class="type-body">
+        <h3>Chung Cư & Căn Hộ</h3>
+        <p>Thi công khối nhà chung cư từ 5–30 tầng, bao gồm phần thô, MEP (cơ điện), hoàn thiện căn hộ và hạ tầng kỹ thuật toà nhà.</p>
+        <ul class="type-features">
+          <li>Từ 5 đến 30 tầng</li>
+          <li>Hệ thống thang máy, PCCC đầy đủ</li>
+          <li>Khu tiện ích: hồ bơi, gym, sảnh</li>
+          <li>Giấy phép xây dựng trọn gói</li>
+        </ul>
+      </div>
+    </div>
+    <div class="type-card reveal reveal-delay-1">
+      <div class="type-thumb" style="background:linear-gradient(135deg,#f2f0ec,#e4e0d8)">
+        <span class="type-icon-big">🏫</span>
+        <div class="type-label-bar">Công trình công cộng</div>
+      </div>
+      <div class="type-body">
+        <h3>Trường Học & Bệnh Viện</h3>
+        <p>Xây dựng công trình giáo dục và y tế theo đúng tiêu chuẩn nhà nước, đảm bảo an toàn vượt trội và công năng sử dụng lâu dài.</p>
+        <ul class="type-features">
+          <li>Tuân thủ tiêu chuẩn TCVN</li>
+          <li>Phòng cháy chữa cháy đạt chuẩn</li>
+          <li>Hệ thống y tế, hệ thống âm thanh</li>
+          <li>Cơ sở hạ tầng kỹ thuật đồng bộ</li>
+        </ul>
+      </div>
+    </div>
+    <div class="type-card reveal reveal-delay-2">
+      <div class="type-thumb" style="background:linear-gradient(135deg,#edf2ec,#dde8dc)">
+        <span class="type-icon-big">🏘️</span>
+        <div class="type-label-bar">Khu dân cư</div>
+      </div>
+      <div class="type-body">
+        <h3>Nhà Ở Xã Hội & Tái Định Cư</h3>
+        <p>Thi công nhà ở xã hội, khu tái định cư theo chính sách nhà nước — tiết kiệm chi phí nhưng vẫn đảm bảo chất lượng kết cấu.</p>
+        <ul class="type-features">
+          <li>Chi phí tối ưu, chất lượng đảm bảo</li>
+          <li>Đáp ứng tiêu chí nhà ở xã hội</li>
+          <li>Hạ tầng giao thông đồng bộ</li>
+          <li>Hỗ trợ thủ tục pháp lý</li>
+        </ul>
+      </div>
+    </div>
+    <div class="type-card reveal reveal-delay-3">
+      <div class="type-thumb" style="background:linear-gradient(135deg,#f2ecec,#e8d8d8)">
+        <span class="type-icon-big">🔧</span>
+        <div class="type-label-bar">Cải tạo</div>
+      </div>
+      <div class="type-body">
+        <h3>Sửa Chữa & Cải Tạo Nhà Cũ</h3>
+        <p>Đánh giá kết cấu, gia cố móng, nâng tầng và cải tạo toàn bộ công trình cũ — nâng cao giá trị và kéo dài tuổi thọ công trình.</p>
+        <ul class="type-features">
+          <li>Khảo sát, kiểm định kết cấu</li>
+          <li>Gia cố móng, nâng tầng an toàn</li>
+          <li>Cải tạo nội thất, ngoại thất</li>
+          <li>Chống thấm, chống nứt triệt để</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUY TRÌNH -->
+<section class="section gray">
+  <div class="reveal">
+    <div class="section-tag"><div class="section-tag-bar"></div><span class="section-tag-text">Quy Trình Thực Hiện</span></div>
+    <h2 class="section-title">5 BƯỚC TỪ Ý TƯỞNG<br>ĐẾN BÀN GIAO</h2>
+  </div>
+  <div class="process reveal">
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-circle">01</div>
+        <div class="step-title">Tư Vấn & Khảo Sát</div>
+        <div class="step-desc">Gặp gỡ, lắng nghe nhu cầu. Khảo sát địa chất, mặt bằng, pháp lý công trình.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">02</div>
+        <div class="step-title">Lập Dự Toán</div>
+        <div class="step-desc">Dự toán chi tiết theo từng hạng mục. Minh bạch giá vật liệu và nhân công.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">03</div>
+        <div class="step-title">Ký Hợp Đồng</div>
+        <div class="step-desc">Ký kết hợp đồng rõ ràng: tiến độ, chất lượng, bảo hành và điều khoản phạt.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">04</div>
+        <div class="step-title">Thi Công & Giám Sát</div>
+        <div class="step-desc">Thi công theo đúng bản vẽ. Giám sát kỹ thuật 24/7, báo cáo tiến độ hàng tuần.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">05</div>
+        <div class="step-title">Bàn Giao & Bảo Hành</div>
+        <div class="step-desc">Nghiệm thu từng hạng mục. Bàn giao hồ sơ hoàn công và bảo hành 5 năm.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAM KẾT -->
+<section class="section">
+  <div class="reveal">
+    <div class="section-tag"><div class="section-tag-bar"></div><span class="section-tag-text">Cam Kết Của Chúng Tôi</span></div>
+    <h2 class="section-title">TẠI SAO CHỌN<br>VIET CONSTRUCTION?</h2>
+  </div>
+  <a href="index.html#contact" class="btn-red">Nhận Báo Giá Ngay</a>
+  <div class="commitments">
+    <div class="commit-item reveal reveal-delay-1">
+      <div class="commit-icon">🏆</div>
+      <div>
+        <h4>Chất Lượng Vật Liệu Đảm Bảo</h4>
+        <p>Chỉ sử dụng vật liệu có CO/CQ rõ ràng từ nhà cung cấp uy tín: xi măng INSEE, sắt thép Hòa Phát, gạch Đồng Tâm, thiết bị vệ sinh Toto/Caesar.</p>
+      </div>
+    </div>
+    <div class="commit-item reveal reveal-delay-2">
+      <div class="commit-icon">⏱️</div>
+      <div>
+        <h4>Đúng Tiến Độ Cam Kết</h4>
+        <p>Lập lịch thi công chi tiết, phân bổ nhân lực hợp lý. Cam kết bồi thường nếu chậm tiến độ theo điều khoản hợp đồng đã ký.</p>
+      </div>
+    </div>
+    <div class="commit-item reveal reveal-delay-3">
+      <div class="commit-icon">💰</div>
+      <div>
+        <h4>Minh Bạch Chi Phí</h4>
+        <p>Dự toán chi tiết từng hạng mục, không phát sinh chi phí ẩn. Điều chỉnh khối lượng có biên bản xác nhận hai bên rõ ràng.</p>
+      </div>
+    </div>
+    <div class="commit-item reveal reveal-delay-4">
+      <div class="commit-icon">🛡️</div>
+      <div>
+        <h4>Bảo Hành 5 Năm Toàn Diện</h4>
+        <p>Bảo hành kết cấu 5 năm, chống thấm 3 năm, hoàn thiện 1 năm. Đội kỹ thuật bảo trì phản hồi trong vòng 24 giờ khi có yêu cầu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-text">
+    <h2>SẴN SÀNG BẮT ĐẦU<br>DỰ ÁN CỦA BẠN?</h2>
+    <p>Liên hệ ngay hôm nay để được tư vấn miễn phí và nhận báo giá chi tiết trong vòng 24 giờ làm việc.</p>
+  </div>
+  <div class="cta-actions">
+    <a href="index.html#contact" class="btn-red">Nhận Báo Giá Ngay</a>
+    <a href="tu-van-thiet-ke.html" class="btn-outline">Xem Tư Vấn Thiết Kế →</a>
+  </div>
+</div>
+
+<footer>
+  <p>© 2024 Viet Construction JSC. Bảo lưu mọi quyền.</p>
+  <div class="footer-links">
+    <a href="index.html">Trang Chủ</a>
+    <a href="xaydungdandung.html">Xây Dựng Dân Dụng</a>
+    <a href="tu-van-thiet-ke.html">Tư Vấn Thiết Kế</a>
+    <a href="index.html#contact">Liên Hệ</a>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

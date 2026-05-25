@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<!--
+==============================================
+  VIET CONSTRUCTION – Website
+  Mobile-first, single file
+  Tất cả CSS và JS nằm trong file này
+  Chỉnh sửa dễ dàng theo hướng dẫn bên dưới
+==============================================
+-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="Viet Construction – Tổng thầu xây dựng uy tín tại TP.HCM. Hơn 18 năm kinh nghiệm xây dựng dân dụng và công nghiệp.">
+<title>Viet Construction</title>
+
+<!-- ============================================
+     FONTS – Thay đổi font tại đây nếu muốn
+============================================ -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+/* ================================================
+   CSS VARIABLES – Thay màu tại đây
+   ================================================ */
+:root {
+  --red:        #C8102E;   /* Màu chủ đạo */
+  --red-dark:   #A00C24;   /* Màu đỏ đậm hơn */
+  --dark:       #1A1A1A;   /* Nền tối */
+  --dark2:      #222222;
+  --mid:        #3C3C3C;   /* Chữ trung tính */
+  --gray:       #6B6B6B;   /* Chữ mờ */
+  --light:      #F5F5F5;   /* Nền sáng nhạt */
+  --border:     #E5E5E5;   /* Đường kẻ */
+  --white:      #FFFFFF;
+
+  /* Kích thước chữ mobile */
+  --text-xs:    11px;
+  --text-sm:    13px;
+  --text-base:  15px;
+  --text-lg:    18px;
+  --text-xl:    22px;
+  --text-2xl:   28px;
+  --text-3xl:   36px;
+
+  /* Spacing */
+  --pad:        20px;      /* Padding ngang trang */
+  --section:    60px;      /* Padding dọc section */
+  --radius:     8px;
+  --radius-lg:  14px;
+}
+
+/* ================================================
+   RESET & BASE
+   ================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--dark);
+  background: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+/* ================================================
+   UTILITY
+   ================================================ */
+.section-tag {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
+}
+.section-tag::before {
+  content: ''; display: block; width: 28px; height: 3px; background: var(--red); flex-shrink: 0;
+}
+.section-tag span {
+  font-size: var(--text-xs); font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--red);
+}
+.section-title {
+  font-size: var(--text-2xl); font-weight: 800;
+  text-transform: uppercase; letter-spacing: -0.5px; line-height: 1.1;
+  margin-bottom: 12px;
+}
+.section-desc {
+  font-size: var(--text-sm); color: var(--gray);
+  line-height: 1.8; font-weight: 300;
+}
+.btn-red {
+  display: inline-block;
+  background: var(--red); color: var(--white);
+  padding: 14px 28px; font-size: var(--text-xs);
+  font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  transition: background .2s, transform .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-red:active { background: var(--red-dark); transform: scale(0.97); }
+.btn-outline {
+  display: inline-block;
+  background: transparent; color: var(--white);
+  border: 1.5px solid rgba(255,255,255,0.3); padding: 14px 28px;
+  font-size: var(--text-xs); font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  transition: border-color .2s;
+}
+.btn-outline:active { border-color: white; }
+
+/* Reveal animation */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ================================================
+   TOP BAR (thông tin nhanh)
+   ================================================ */
+.topbar {
+  background: var(--dark);
+  padding: 8px var(--pad);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.topbar a {
+  font-size: var(--text-xs); color: rgba(255,255,255,0.5);
+  display: flex; align-items: center; gap: 5px;
+  font-weight: 500; letter-spacing: 0.5px;
+}
+.topbar a:active { color: var(--red); }
+
+/* ================================================
+   NAVBAR
+   ================================================ */
+.navbar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--white); border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 8px rgba(0,0,0,0.07);
+}
+.navbar-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--pad); height: 60px;
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-mark {
+  width: 36px; height: 36px; background: var(--red);
+  display: flex; align-items: center; justify-content: center;
+  clip-path: polygon(0 0,100% 0,100% 75%,75% 100%,0 100%);
+  flex-shrink: 0;
+}
+.logo-mark svg { width: 18px; height: 18px; }
+.logo-text { font-size: 15px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; line-height: 1; }
+.logo-text span { color: var(--red); }
+
+/* Hamburger */
+.hamburger {
+  width: 40px; height: 40px; display: flex; flex-direction: column;
+  justify-content: center; align-items: center; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 4px;
+}
+.hamburger span {
+  display: block; width: 22px; height: 2px; background: var(--dark);
+  transition: all .3s ease; transform-origin: center;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile menu drawer */
+.nav-drawer {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--white); z-index: 99;
+  transform: translateX(100%); transition: transform .3s ease;
+  display: flex; flex-direction: column; padding-top: 60px;
+  overflow-y: auto;
+}
+.nav-drawer.open { transform: translateX(0); }
+.nav-drawer-links { padding: var(--pad); flex: 1; }
+.nav-drawer-links a {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 0; font-size: var(--text-base); font-weight: 600;
+  border-bottom: 1px solid var(--border); color: var(--dark);
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.nav-drawer-links a:active { color: var(--red); }
+.nav-drawer-links a .chevron { color: var(--gray); font-size: 18px; }
+.nav-drawer-links .sub-link {
+  font-size: var(--text-sm); font-weight: 500; color: var(--gray) !important;
+  padding: 12px 0 12px 16px !important; text-transform: none !important; letter-spacing: 0.5px !important;
+}
+.nav-drawer-bottom {
+  padding: var(--pad);
+  border-top: 1px solid var(--border);
+  background: var(--light);
+}
+.nav-cta-full {
+  display: block; text-align: center;
+  background: var(--red); color: white;
+  padding: 16px; font-size: var(--text-sm); font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+}
+.nav-cta-full:active { background: var(--red-dark); }
+
+/* ================================================
+   HERO – Mobile optimized
+   ================================================ */
+.hero {
+  background: var(--dark);
+  padding: 40px var(--pad) 0;
+  position: relative; overflow: hidden;
+  min-height: 520px; display: flex; flex-direction: column;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(-45deg,transparent,transparent 30px,rgba(200,16,46,.04) 30px,rgba(200,16,46,.04) 31px);
+}
+.hero-watermark {
+  position: absolute; bottom: 0; right: -10px;
+  font-size: 120px; font-weight: 900; letter-spacing: -5px;
+  color: rgba(255,255,255,.025); line-height: 1;
+  user-select: none; pointer-events: none;
+}
+.hero-content { position: relative; z-index: 2; flex: 1; }
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+}
+.hero-eyebrow-line { width: 32px; height: 2px; background: var(--red); }
+.hero-eyebrow-text { font-size: var(--text-xs); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,.5); }
+.hero h1 {
+  font-size: var(--text-3xl); font-weight: 900;
+  color: var(--white); text-transform: uppercase;
+  letter-spacing: -1px; line-height: 1.05; margin-bottom: 16px;
+}
+.hero h1 em { color: var(--red); font-style: normal; display: block; }
+.hero-desc {
+  font-size: var(--text-sm); color: rgba(255,255,255,.55);
+  line-height: 1.8; font-weight: 300; margin-bottom: 28px;
+}
+.hero-actions { display: flex; flex-direction: column; gap: 12px; }
+.hero-actions .btn-red, .hero-actions .btn-outline { text-align: center; }
+
+/* Stats row */
+.hero-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  margin-top: 36px; border-top: 1px solid rgba(255,255,255,.08);
+  position: relative; z-index: 2;
+}
+.hero-stat { padding: 20px 10px; text-align: center; border-right: 1px solid rgba(255,255,255,.07); }
+.hero-stat:last-child { border-right: none; }
+.hero-stat-num { font-size: var(--text-xl); font-weight: 900; color: white; line-height: 1; }
+.hero-stat-num sup { font-size: 14px; color: var(--red); }
+.hero-stat-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.35); margin-top: 4px; }
+
+/* ================================================
+   TICKER
+   ================================================ */
+.ticker { background: var(--red); padding: 11px 0; overflow: hidden; white-space: nowrap; }
+.ticker-inner { display: inline-block; animation: ticker 22s linear infinite; }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.ticker-item { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,.9); margin: 0 28px; }
+.ticker-dot { display: inline-block; width: 3px; height: 3px; background: rgba(255,255,255,.4); border-radius: 50%; vertical-align: middle; margin: 0 14px; }
+
+/* ================================================
+   ABOUT
+   ================================================ */
+.about { padding: var(--section) var(--pad); }
+.about-highlights {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 10px; margin-top: 24px;
+}
+.highlight-item {
+  padding: 14px; background: var(--light);
+  border-left: 3px solid var(--red);
+}
+.highlight-item h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.highlight-item p { font-size: 11px; color: var(--gray); }
+
+/* Stats strip */
+.stats-strip {
+  background: var(--dark);
+  display: grid; grid-template-columns: repeat(2, 1fr);
+}
+.stat-cell {
+  padding: 28px 20px; text-align: center;
+  border-right: 1px solid rgba(255,255,255,.06);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  position: relative;
+}
+.stat-cell::before {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 28px; height: 3px; background: var(--red);
+}
+.stat-cell-num { font-size: 38px; font-weight: 900; color: white; line-height: 1; letter-spacing: -1px; }
+.stat-cell-num sup { font-size: 20px; color: var(--red); }
+.stat-cell-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.4); margin-top: 6px; }
+
+/* ================================================
+   SERVICES
+   ================================================ */
+.services { padding: var(--section) var(--pad); background: var(--light); }
+.services-grid { margin-top: 28px; display: flex; flex-direction: column; gap: 3px; }
+.svc-card {
+  background: var(--white); padding: 24px 20px;
+  position: relative; overflow: hidden;
+  border-left: 3px solid transparent;
+  transition: border-color .2s;
+  cursor: pointer;
+}
+.svc-card.active, .svc-card:active { border-left-color: var(--red); }
+.svc-card-header {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 0;
+}
+.svc-icon {
+  width: 44px; height: 44px; background: var(--light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+  transition: background .2s;
+}
+.svc-card.active .svc-icon, .svc-card:active .svc-icon { background: var(--red); }
+.svc-num { position: absolute; top: 12px; right: 16px; font-size: 50px; font-weight: 900; color: rgba(0,0,0,.04); line-height: 1; }
+.svc-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.svc-toggle { margin-left: auto; font-size: 20px; color: var(--gray); transition: transform .3s; flex-shrink: 0; }
+.svc-card.open .svc-toggle { transform: rotate(180deg); color: var(--red); }
+.svc-body {
+  max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .25s;
+}
+.svc-card.open .svc-body { max-height: 300px; padding-top: 16px; }
+.svc-body p { font-size: var(--text-sm); color: var(--gray); line-height: 1.75; font-weight: 300; margin-bottom: 12px; }
+.svc-body-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: var(--text-xs); font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--red);
+}
+
+/* ================================================
+   PROJECTS
+   ================================================ */
+.projects { padding: var(--section) var(--pad); }
+.projects-scroll {
+  display: flex; gap: 12px; overflow-x: auto; margin-top: 24px;
+  scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+  padding-bottom: 12px;
+  /* Hide scrollbar */
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.projects-scroll::-webkit-scrollbar { display: none; }
+.project-card {
+  flex: 0 0 260px; scroll-snap-align: start;
+  background: var(--dark); border-radius: var(--radius-lg);
+  overflow: hidden; position: relative;
+}
+.project-thumb {
+  height: 160px; background: #222;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.project-thumb-icon { font-size: 60px; opacity: .08; }
+.project-thumb-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--red); }
+.project-body { padding: 16px; }
+.project-cat { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+.project-name { font-size: 14px; font-weight: 700; color: white; margin-bottom: 4px; }
+.project-meta { font-size: 11px; color: rgba(255,255,255,.35); font-weight: 300; }
+
+/* Scroll dots */
+.scroll-dots { display: flex; justify-content: center; gap: 6px; margin-top: 16px; }
+.scroll-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: background .2s, width .2s; }
+.scroll-dot.active { background: var(--red); width: 18px; border-radius: 3px; }
+
+/* ================================================
+   WHY US
+   ================================================ */
+.why { padding: var(--section) var(--pad); background: var(--light); }
+.why-list { margin-top: 28px; display: flex; flex-direction: column; gap: 0; }
+.why-item {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 20px 0; border-bottom: 1px solid var(--border);
+}
+.why-item:first-child { border-top: 1px solid var(--border); }
+.why-num {
+  font-size: 28px; font-weight: 900; color: var(--red); line-height: 1;
+  min-width: 36px; flex-shrink: 0;
+}
+.why-item h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+.why-item p { font-size: 12px; color: var(--gray); line-height: 1.65; font-weight: 300; }
+
+/* ================================================
+   CONTACT FORM
+   ================================================ */
+.contact { padding: var(--section) var(--pad); }
+.contact-form { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--mid); }
+.form-input {
+  background: var(--light); border: 2px solid transparent;
+  padding: 14px 16px; font-family: 'Montserrat', sans-serif;
+  font-size: 14px; font-weight: 400; color: var(--dark);
+  outline: none; border-radius: var(--radius);
+  transition: border-color .2s;
+  -webkit-appearance: none; /* iOS fix */
+}
+.form-input:focus { border-color: var(--red); }
+.form-input::placeholder { color: rgba(0,0,0,.3); }
+select.form-input { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6B6B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+textarea.form-input { resize: none; min-height: 110px; }
+.form-submit {
+  background: var(--red); color: white;
+  padding: 16px; font-size: 13px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  border-radius: var(--radius); cursor: pointer; border: none;
+  font-family: 'Montserrat', sans-serif;
+  transition: background .2s, transform .15s;
+  -webkit-appearance: none;
+}
+.form-submit:active { background: var(--red-dark); transform: scale(0.98); }
+.form-submit.success { background: #28a745; }
+
+/* Contact info cards */
+.contact-info { margin-top: 32px; display: flex; flex-direction: column; gap: 10px; }
+.ci-card { display: flex; gap: 14px; align-items: center; padding: 16px; background: var(--light); border-radius: var(--radius); }
+.ci-icon { width: 40px; height: 40px; background: var(--red); display: flex; align-items: center; justify-content: center; border-radius: var(--radius); font-size: 18px; flex-shrink: 0; }
+.ci-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--red); margin-bottom: 3px; }
+.ci-value { font-size: 13px; font-weight: 500; color: var(--dark); }
+
+/* ================================================
+   FOOTER
+   ================================================ */
+footer {
+  background: var(--dark);
+  padding: 40px var(--pad) 24px;
+}
+.footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.footer-logo-text { font-size: 16px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: white; }
+.footer-logo-text span { color: var(--red); }
+.footer-desc { font-size: 12px; color: rgba(255,255,255,.35); line-height: 1.75; font-weight: 300; margin-bottom: 28px; }
+.footer-links-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px; }
+.footer-col h4 { font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 14px; }
+.footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,.35); font-weight: 300; margin-bottom: 10px; }
+.footer-col a:active { color: var(--red); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,.07); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; }
+.footer-copy { font-size: 11px; color: rgba(255,255,255,.2); }
+.social-links { display: flex; gap: 10px; }
+.social-btn { width: 32px; height: 32px; border: 1px solid rgba(255,255,255,.12); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.35); font-size: 12px; font-weight: 700; border-radius: 4px; }
+.social-btn:active { background: var(--red); border-color: var(--red); color: white; }
+
+/* Floating CTA Button */
+.float-cta {
+  position: fixed; bottom: 20px; right: 20px; z-index: 50;
+  background: var(--red); color: white;
+  padding: 14px 20px; border-radius: 30px;
+  font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  display: flex; align-items: center; gap: 8px;
+  box-shadow: 0 4px 20px rgba(200,16,46,.4);
+  transition: transform .2s, opacity .3s;
+}
+.float-cta:active { transform: scale(0.95); }
+.float-cta.hidden { opacity: 0; pointer-events: none; transform: translateY(10px); }
+
+/* ================================================
+   DESKTOP (≥ 768px) – Nâng cấp layout
+   ================================================ */
+@media (min-width: 768px) {
+  :root {
+    --pad: 40px;
+    --section: 90px;
+    --text-xl: 26px;
+    --text-2xl: 36px;
+    --text-3xl: 52px;
+  }
+
+  /* Nav – show links on desktop */
+  .hamburger { display: none; }
+  .nav-drawer {
+    position: static; transform: none; display: flex;
+    flex-direction: row; align-items: center;
+    padding: 0; background: none; overflow: visible;
+    flex: 1; justify-content: flex-end;
+  }
+  .nav-drawer-links {
+    display: flex; flex-direction: row; align-items: center;
+    padding: 0; gap: 0;
+  }
+  .nav-drawer-links a {
+    padding: 0 18px; height: 60px; border-bottom: none;
+    font-size: 12px; border-bottom: 3px solid transparent;
+    transition: color .2s, border-color .2s;
+  }
+  .nav-drawer-links a:hover { color: var(--red); border-bottom-color: var(--red); }
+  .nav-drawer-links .chevron { display: none; }
+  .nav-drawer-links .sub-link { display: none; }
+  .nav-drawer-bottom {
+    padding: 0; border: none; background: none;
+    display: flex; align-items: center;
+  }
+  .nav-cta-full {
+    padding: 10px 22px; border-radius: 0;
+    white-space: nowrap;
+  }
+
+  /* Hero */
+  .hero {
+    flex-direction: row; padding-top: 0; min-height: 500px; align-items: center;
+  }
+  .hero-content { padding: 60px 0; max-width: 560px; }
+  .hero h1 { font-size: clamp(42px, 6vw, 80px); }
+  .hero-actions { flex-direction: row; }
+  .hero-stats { grid-template-columns: repeat(4, 1fr); margin-top: 0; border-top: none; border-left: 1px solid rgba(255,255,255,.08); margin-left: auto; padding: 40px 0 40px 40px; }
+  .hero-stat { border-right: none; border-bottom: none; padding: 20px 28px; }
+
+  /* Stats strip – 4 cols */
+  .stats-strip { grid-template-columns: repeat(4, 1fr); }
+  .stat-cell { border-bottom: none; }
+
+  /* Services – 2 cols */
+  .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; flex-direction: unset; }
+  .svc-card.open .svc-body { max-height: 200px; }
+
+  /* Projects */
+  .project-card { flex: 0 0 300px; }
+
+  /* Contact – 2 cols */
+  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .contact-form { margin-top: 0; }
+  .contact-info { margin-top: 0; }
+
+  /* Footer */
+  .footer-links-grid { grid-template-columns: repeat(3, 1fr); }
+
+  /* Float CTA – hide on desktop */
+  .float-cta { display: none; }
+}
+
+@media (min-width: 1200px) {
+  :root { --pad: 60px; }
+  .hero-content { max-width: 640px; }
+  .services-grid { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================================
+     TOP BAR – Thay số điện thoại, email tại đây
+============================================ -->
+<div class="topbar">
+  <a href="tel:0909123456">📞 0909 123 456</a>
+  <a href="mailto:info@vietconstruction.vn">✉ info@vietconstruction.vn</a>
+</div>
+
+<!-- ============================================
+     NAVBAR
+============================================ -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <!-- LOGO – Thay tên công ty tại đây -->
+    <a class="logo" href="#hero">
+      <div class="logo-mark">
+        <svg viewBox="0 0 22 22" fill="none"><path d="M4 18V8L11 3L18 8V18H13V13H9V18H4Z" fill="white"/></svg>
+      </div>
+      <div class="logo-text">VIET<span>CON</span></div>
+    </a>
+
+    <!-- HAMBURGER (mobile) -->
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU DRAWER -->
+<div class="nav-drawer" id="navDrawer">
+  <div class="nav-drawer-links">
+    <a href="#about" onclick="closeMenu()">Về Chúng Tôi <span class="chevron">›</span></a>
+    <a href="#services" onclick="closeMenu()">Dịch Vụ <span class="chevron">›</span></a>
+    <!-- Sub-links cho Dịch vụ -->
+    <a href="xay-dung-dan-dung.html" class="sub-link">↳ Xây Dựng Dân Dụng <span class="chevron">›</span></a>
+    <a href="tu-van-thiet-ke.html" class="sub-link">↳ Tư Vấn Thiết Kế <span class="chevron">›</span></a>
+    <a href="#projects" onclick="closeMenu()">Dự Án <span class="chevron">›</span></a>
+    <a href="#why" onclick="closeMenu()">Tại Sao Chọn Chúng Tôi <span class="chevron">›</span></a>
+    <a href="#contact" onclick="closeMenu()">Liên Hệ <span class="chevron">›</span></a>
+  </div>
+  <div class="nav-drawer-bottom">
+    <a href="#contact" class="nav-cta-full" onclick="closeMenu()">📋 Nhận Báo Giá Miễn Phí</a>
+  </div>
+</div>
+
+<!-- ============================================
+     HERO
+============================================ -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-watermark">BUILD</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">Tổng Thầu Xây Dựng TP.HCM</span>
+    </div>
+    <!-- TIÊU ĐỀ – Thay nội dung tại đây -->
+    <h1>KIẾN TẠO<br>KHÔNG GIAN<br><em>BỀN VỮNG</em></h1>
+    <p class="hero-desc">Hơn 18 năm thi công nhà ở, biệt thự và công trình công nghiệp. Chất lượng quốc tế, đúng tiến độ, bảo hành 5 năm.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-red">📋 Báo Giá Miễn Phí</a>
+      <a href="#services" class="btn-outline">Xem Dịch Vụ</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">500<sup>+</sup></div>
+      <div class="hero-stat-label">Dự Án</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">18<sup>+</sup></div>
+      <div class="hero-stat-label">Năm</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">5</div>
+      <div class="hero-stat-label">Bảo Hành</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    <span class="ticker-item">Xây Dựng Dân Dụng</span><span class="ticker-dot"></span>
+    <span class="ticker-item">Công Trình Công Nghiệp</span><span class="ticker-dot"></span>
+    <span class="ticker-item">Thiết Kế & Thi Công</span><span class="ticker-dot"></span>
+    <span class="ticker-item">Đúng Tiến Độ</span><span class="ticker-dot"></span>
+    <span class="ticker-item">Bảo Hành 5 Năm</span><span class="ticker-dot"></span>
+    <span class="ticker-item">Xây Dựng Dân Dụng</span><span class="ticker-dot"></span>
+    <span class="ticker-item">Công Trình Công Nghiệp</span><span class="ticker-dot"></span>
+    <span class="ticker-item">Thiết Kế & Thi Công</span><span class="ticker-dot"></span>
+    <span class="ticker-item">Đúng Tiến Độ</span><span class="ticker-dot"></span>
+    <span class="ticker-item">Bảo Hành 5 Năm</span><span class="ticker-dot"></span>
+  </div>
+</div>
+
+<!-- ============================================
+     ABOUT
+============================================ -->
+<section class="about reveal" id="about">
+  <div class="section-tag"><span>Về Chúng Tôi</span></div>
+  <!-- TIÊU ĐỀ SECTION – Thay tại đây -->
+  <h2 class="section-title">ĐỒNG HÀNH<br>TỪNG CÔNG TRÌNH</h2>
+  <p class="section-desc">Viet Construction thành lập năm 2006 tại TP.HCM — đối tác tin cậy của hàng trăm khách hàng cá nhân và doanh nghiệp trên cả nước.</p>
+  <!-- ĐIỂM MẠNH – Thay nội dung 4 ô bên dưới -->
+  <div class="about-highlights">
+    <div class="highlight-item">
+      <h4>Tổng Thầu EPC</h4>
+      <p>Thiết kế – Mua sắm – Thi công trọn gói</p>
+    </div>
+    <div class="highlight-item">
+      <h4>ISO 9001:2015</h4>
+      <p>Quản lý chất lượng đạt chuẩn quốc tế</p>
+    </div>
+    <div class="highlight-item">
+      <h4>An Toàn Lao Động</h4>
+      <p>Tuân thủ OHSAS 18001 trên mọi công trường</p>
+    </div>
+    <div class="highlight-item">
+      <h4>Xây Dựng Xanh</h4>
+      <p>Cam kết phát triển bền vững, thân thiện môi trường</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stat-cell reveal">
+    <div class="stat-cell-num">500<sup>+</sup></div>
+    <div class="stat-cell-label">Dự Án Hoàn Thành</div>
+  </div>
+  <div class="stat-cell reveal">
+    <div class="stat-cell-num">350<sup>+</sup></div>
+    <div class="stat-cell-label">Nhân Sự Chuyên Nghiệp</div>
+  </div>
+  <div class="stat-cell reveal">
+    <div class="stat-cell-num">99<sup>%</sup></div>
+    <div class="stat-cell-label">Đúng Tiến Độ</div>
+  </div>
+  <div class="stat-cell reveal">
+    <div class="stat-cell-num">18</div>
+    <div class="stat-cell-label">Tỉnh Thành Thực Hiện</div>
+  </div>
+</div>
+
+<!-- ============================================
+     SERVICES – Accordion trên mobile
+============================================ -->
+<section class="services reveal" id="services">
+  <div class="section-tag"><span>Dịch Vụ</span></div>
+  <h2 class="section-title">GIẢI PHÁP<br>XÂY DỰNG</h2>
+  <!-- DỊCH VỤ – Thêm/xóa/sửa card tại đây -->
+  <div class="services-grid" id="servicesGrid">
+
+    <div class="svc-card" onclick="toggleService(this,'xay-dung-dan-dung.html')">
+      <div class="svc-card-header">
+        <div class="svc-icon">🏗️</div>
+        <div class="svc-num">01</div>
+        <div class="svc-title">Xây Dựng Dân Dụng</div>
+        <span class="svc-toggle">⌄</span>
+      </div>
+      <div class="svc-body">
+        <p>Nhà ở, biệt thự, chung cư, trường học — thi công từ móng đến hoàn thiện theo đúng thiết kế và tiêu chuẩn kỹ thuật.</p>
+        <a href="xay-dung-dan-dung.html" class="svc-body-link">Xem Chi Tiết →</a>
+      </div>
+    </div>
+
+    <div class="svc-card" onclick="toggleService(this,'')">
+      <div class="svc-card-header">
+        <div class="svc-icon">🏢</div>
+        <div class="svc-num">02</div>
+        <div class="svc-title">Công Trình Thương Mại</div>
+        <span class="svc-toggle">⌄</span>
+      </div>
+      <div class="svc-body">
+        <p>Văn phòng, TTTM, khách sạn, resort — không gian thương mại hiện đại, tối ưu công năng và thẩm mỹ.</p>
+        <a href="#contact" class="svc-body-link">Tư Vấn Ngay →</a>
+      </div>
+    </div>
+
+    <div class="svc-card" onclick="toggleService(this,'')">
+      <div class="svc-card-header">
+        <div class="svc-icon">🏭</div>
+        <div class="svc-num">03</div>
+        <div class="svc-title">Công Trình Công Nghiệp</div>
+        <span class="svc-toggle">⌄</span>
+      </div>
+      <div class="svc-body">
+        <p>Nhà xưởng, kho vận, nhà máy sản xuất — đáp ứng yêu cầu kỹ thuật công nghiệp, an toàn PCCC và tiêu chuẩn môi trường.</p>
+        <a href="#contact" class="svc-body-link">Tư Vấn Ngay →</a>
+      </div>
+    </div>
+
+    <div class="svc-card" onclick="toggleService(this,'tu-van-thiet-ke.html')">
+      <div class="svc-card-header">
+        <div class="svc-icon">📐</div>
+        <div class="svc-num">04</div>
+        <div class="svc-title">Thiết Kế & Tư Vấn</div>
+        <span class="svc-toggle">⌄</span>
+      </div>
+      <div class="svc-body">
+        <p>Bản vẽ kiến trúc, kết cấu, M&E. Xin phép xây dựng. Tư vấn lựa chọn vật liệu và giải pháp tối ưu.</p>
+        <a href="tu-van-thiet-ke.html" class="svc-body-link">Xem Chi Tiết →</a>
+      </div>
+    </div>
+
+    <div class="svc-card" onclick="toggleService(this,'')">
+      <div class="svc-card-header">
+        <div class="svc-icon">🔧</div>
+        <div class="svc-num">05</div>
+        <div class="svc-title">Cải Tạo & Sửa Chữa</div>
+        <span class="svc-toggle">⌄</span>
+      </div>
+      <div class="svc-body">
+        <p>Sửa chữa, cải tạo, nâng tầng công trình cũ — gia cố kết cấu, nâng cao chất lượng và giá trị công trình.</p>
+        <a href="#contact" class="svc-body-link">Tư Vấn Ngay →</a>
+      </div>
+    </div>
+
+    <div class="svc-card" onclick="toggleService(this,'')">
+      <div class="svc-card-header">
+        <div class="svc-icon">🌿</div>
+        <div class="svc-num">06</div>
+        <div class="svc-title">Nội Thất & Cảnh Quan</div>
+        <span class="svc-toggle">⌄</span>
+      </div>
+      <div class="svc-body">
+        <p>Thiết kế và thi công nội thất, sân vườn cảnh quan — không gian sống hoàn chỉnh và đồng bộ từ trong ra ngoài.</p>
+        <a href="#contact" class="svc-body-link">Tư Vấn Ngay →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================
+     PROJECTS – Horizontal scroll cards
+============================================ -->
+<section class="projects reveal" id="projects">
+  <div class="section-tag"><span>Dự Án Tiêu Biểu</span></div>
+  <h2 class="section-title">CÔNG TRÌNH<br>NỔI BẬT</h2>
+  <!-- DỰ ÁN – Thêm/xóa project-card tại đây -->
+  <div class="projects-scroll" id="projectsScroll">
+    <div class="project-card">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#1a2030,#2a3040)">
+        <span class="project-thumb-icon">🏢</span>
+        <div class="project-thumb-bar"></div>
+      </div>
+      <div class="project-body">
+        <div class="project-cat">Thương Mại</div>
+        <div class="project-name">Tháp Văn Phòng Sunrise</div>
+        <div class="project-meta">Quận 1, TP.HCM · 28 tầng · 2022</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#1e1810,#2e2818)">
+        <span class="project-thumb-icon">🏡</span>
+        <div class="project-thumb-bar"></div>
+      </div>
+      <div class="project-body">
+        <div class="project-cat">Dân Dụng</div>
+        <div class="project-name">Villa Palm Garden</div>
+        <div class="project-meta">Quận 9, TP.HCM · 3 tầng · 2023</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#101820,#182030)">
+        <span class="project-thumb-icon">🏭</span>
+        <div class="project-thumb-bar"></div>
+      </div>
+      <div class="project-body">
+        <div class="project-cat">Công Nghiệp</div>
+        <div class="project-name">Nhà Máy Bình Dương</div>
+        <div class="project-meta">Bình Dương · 15.000m² · 2021</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#201018,#301020)">
+        <span class="project-thumb-icon">🏬</span>
+        <div class="project-thumb-bar"></div>
+      </div>
+      <div class="project-body">
+        <div class="project-cat">Thương Mại</div>
+        <div class="project-name">TT Thương Mại Golden</div>
+        <div class="project-meta">Bình Thạnh · 8 tầng · 2023</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#101a10,#182018)">
+        <span class="project-thumb-icon">🏠</span>
+        <div class="project-thumb-bar"></div>
+      </div>
+      <div class="project-body">
+        <div class="project-cat">Dân Dụng</div>
+        <div class="project-name">Nhà Phố Modern Q7</div>
+        <div class="project-meta">Quận 7 · 4 tầng · 2024</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-dots" id="scrollDots"></div>
+</section>
+
+<!-- ============================================
+     WHY US
+============================================ -->
+<section class="why reveal" id="why">
+  <div class="section-tag"><span>Tại Sao Chọn Chúng Tôi</span></div>
+  <h2 class="section-title">CAM KẾT<br>CHẤT LƯỢNG</h2>
+  <!-- LÝ DO – Thêm/sửa tại đây -->
+  <div class="why-list">
+    <div class="why-item">
+      <div class="why-num">01</div>
+      <div>
+        <h4>Đội Ngũ Chuyên Nghiệp</h4>
+        <p>Hơn 350 kỹ sư và kiến trúc sư có chứng chỉ hành nghề, kinh nghiệm thực tế đa dạng trên nhiều loại công trình lớn nhỏ.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">02</div>
+      <div>
+        <h4>Vật Liệu Chất Lượng Cao</h4>
+        <p>Chỉ dùng vật liệu có CO/CQ từ nhà cung cấp uy tín: xi măng INSEE, sắt Hòa Phát, thiết bị Toto/Caesar.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">03</div>
+      <div>
+        <h4>Đúng Tiến Độ & Ngân Sách</h4>
+        <p>Cam kết bàn giao đúng hạn. Dự toán minh bạch, không phát sinh chi phí ẩn ngoài hợp đồng đã ký.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">04</div>
+      <div>
+        <h4>Bảo Hành 5 Năm</h4>
+        <p>Bảo hành kết cấu 5 năm, chống thấm 3 năm. Đội kỹ thuật bảo trì phản hồi trong 24 giờ.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     CONTACT FORM
+============================================ -->
+<section class="contact reveal" id="contact">
+  <div class="contact-inner">
+    <div>
+      <div class="section-tag"><span>Liên Hệ</span></div>
+      <h2 class="section-title">BẮT ĐẦU<br>DỰ ÁN CỦA BẠN</h2>
+      <p class="section-desc">Tư vấn miễn phí. Báo giá chi tiết trong 24 giờ làm việc.</p>
+      <!-- FORM – Chỉnh sửa các trường tại đây -->
+      <form class="contact-form" id="contactForm" onsubmit="submitForm(event)">
+        <div class="form-group">
+          <label class="form-label">Họ và Tên *</label>
+          <input class="form-input" type="text" placeholder="Nguyễn Văn A" required autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Số Điện Thoại *</label>
+          <input class="form-input" type="tel" placeholder="0909 000 000" required autocomplete="tel">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Loại Công Trình</label>
+          <select class="form-input">
+            <option value="">-- Chọn loại công trình --</option>
+            <option>Nhà ở / Biệt thự</option>
+            <option>Văn phòng / Thương mại</option>
+            <option>Công nghiệp / Nhà xưởng</option>
+            <option>Cải tạo / Sửa chữa</option>
+            <option>Tư vấn thiết kế</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mô Tả Yêu Cầu</label>
+          <textarea class="form-input" placeholder="Diện tích, số tầng, ngân sách dự kiến, địa điểm xây dựng..."></textarea>
+        </div>
+        <button type="submit" class="form-submit" id="submitBtn">GỬI YÊU CẦU TƯ VẤN</button>
+      </form>
+    </div>
+
+    <!-- THÔNG TIN LIÊN HỆ – Thay số, địa chỉ tại đây -->
+    <div class="contact-info">
+      <div class="ci-card">
+        <div class="ci-icon">📍</div>
+        <div>
+          <div class="ci-label">Địa Chỉ</div>
+          <div class="ci-value">123 Nguyễn Huệ, Quận 1, TP.HCM</div>
+        </div>
+      </div>
+      <div class="ci-card">
+        <div class="ci-icon">📞</div>
+        <div>
+          <div class="ci-label">Hotline 24/7</div>
+          <div class="ci-value"><a href="tel:0909123456" style="color:var(--red);font-weight:700">0909 123 456</a></div>
+        </div>
+      </div>
+      <div class="ci-card">
+        <div class="ci-icon">✉️</div>
+        <div>
+          <div class="ci-label">Email</div>
+          <div class="ci-value">info@vietconstruction.vn</div>
+        </div>
+      </div>
+      <div class="ci-card">
+        <div class="ci-icon">🕐</div>
+        <div>
+          <div class="ci-label">Giờ Làm Việc</div>
+          <div class="ci-value">Thứ 2–7: 07:30–17:30</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+============================================ -->
+<footer>
+  <div class="footer-logo">
+    <div class="logo-mark" style="width:32px;height:32px">
+      <svg viewBox="0 0 22 22" fill="none" width="16"><path d="M4 18V8L11 3L18 8V18H13V13H9V18H4Z" fill="white"/></svg>
+    </div>
+    <div class="footer-logo-text">VIET<span>CONSTRUCTION</span></div>
+  </div>
+  <p class="footer-desc">Tổng thầu xây dựng uy tín tại TP.HCM và các tỉnh thành. Chất lượng – Tiến độ – Bảo hành.</p>
+  <div class="footer-links-grid">
+    <div class="footer-col">
+      <h4>Công Ty</h4>
+      <a href="#about">Về Chúng Tôi</a>
+      <a href="#why">Cam Kết</a>
+      <a href="#projects">Dự Án</a>
+    </div>
+    <div class="footer-col">
+      <h4>Dịch Vụ</h4>
+      <a href="xay-dung-dan-dung.html">Xây Dựng Dân Dụng</a>
+      <a href="tu-van-thiet-ke.html">Tư Vấn Thiết Kế</a>
+      <a href="#services">Công Nghiệp</a>
+    </div>
+    <div class="footer-col">
+      <h4>Liên Hệ</h4>
+      <a href="tel:0909123456">0909 123 456</a>
+      <a href="mailto:info@vietconstruction.vn">info@vietconstruction.vn</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2024 Viet Construction</span>
+    <div class="social-links">
+      <a class="social-btn" href="#">f</a>
+      <a class="social-btn" href="#">in</a>
+      <a class="social-btn" href="#">yt</a>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING CTA -->
+<a href="#contact" class="float-cta" id="floatCta">
+  <span>📋</span> Báo Giá
+</a>
+
+<!-- ============================================
+     JAVASCRIPT – Tất cả JS nằm ở đây
+============================================ -->
+<script>
+/* ─── HAMBURGER MENU ─── */
+const hamburger = document.getElementById('hamburger');
+const navDrawer = document.getElementById('navDrawer');
+
+hamburger.addEventListener('click', () => {
+  const isOpen = navDrawer.classList.toggle('open');
+  hamburger.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+
+function closeMenu() {
+  navDrawer.classList.remove('open');
+  hamburger.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ─── SERVICE ACCORDION ─── */
+function toggleService(card, url) {
+  // Nếu đang mở và click vào link → không làm gì (để link hoạt động)
+  const isOpen = card.classList.contains('open');
+
+  // Đóng tất cả
+  document.querySelectorAll('.svc-card').forEach(c => c.classList.remove('open'));
+
+  // Mở card được click (nếu trước đó đóng)
+  if (!isOpen) {
+    card.classList.add('open');
+  }
+}
+
+/* ─── PROJECT SCROLL DOTS ─── */
+const scroll = document.getElementById('projectsScroll');
+const dotsContainer = document.getElementById('scrollDots');
+const cards = scroll.querySelectorAll('.project-card');
+
+// Tạo dots
+cards.forEach((_, i) => {
+  const dot = document.createElement('div');
+  dot.className = 'scroll-dot' + (i === 0 ? ' active' : '');
+  dot.addEventListener('click', () => scroll.scrollTo({ left: cards[i].offsetLeft - 20, behavior: 'smooth' }));
+  dotsContainer.appendChild(dot);
+});
+
+// Cập nhật dot khi scroll
+scroll.addEventListener('scroll', () => {
+  const idx = Math.round(scroll.scrollLeft / (cards[0].offsetWidth + 12));
+  document.querySelectorAll('.scroll-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+});
+
+/* ─── SCROLL REVEAL ─── */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ─── FLOATING CTA ─── */
+const floatCta = document.getElementById('floatCta');
+const contact = document.getElementById('contact');
+window.addEventListener('scroll', () => {
+  const contactTop = contact.getBoundingClientRect().top;
+  floatCta.classList.toggle('hidden', contactTop < window.innerHeight);
+});
+
+/* ─── FORM SUBMIT ─── */
+function submitForm(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  btn.textContent = '✓ ĐÃ GỬI – CHÚNG TÔI SẼ LIÊN HỆ TRONG 24H!';
+  btn.classList.add('success');
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = 'GỬI YÊU CẦU TƯ VẤN';
+    btn.classList.remove('success');
+    btn.disabled = false;
+    e.target.reset();
+  }, 4000);
+}
+
+/* ─── SMOOTH SCROLL (iOS safe) ─── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      closeMenu();
+      setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+    }
+  });
+});
+</script>
+
+</body>
+</html>

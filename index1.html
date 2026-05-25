@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hoang Viet construction – Xây Dựng Tương Lai</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #C8102E;
+  --red-dark: #A00C24;
+  --dark: #1A1A1A;
+  --mid: #3C3C3C;
+  --gray: #6B6B6B;
+  --light-gray: #F4F4F4;
+  --border: #E5E5E5;
+  --white: #FFFFFF;
+  --accent-line: 3px solid var(--red);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--dark);
+  background: var(--white);
+  overflow-x: hidden;
+}
+
+/* ─── NAVBAR ─── */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 60px;
+  height: 72px;
+  box-shadow: 0 1px 12px rgba(0,0,0,0.06);
+  transition: box-shadow 0.3s;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 12px;
+  text-decoration: none;
+}
+.nav-logo-mark {
+  width: 40px; height: 40px;
+  background: var(--red);
+  display: flex; align-items: center; justify-content: center;
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 75% 100%, 0 100%);
+}
+.nav-logo-mark svg { width: 22px; height: 22px; }
+.nav-logo-text {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--dark);
+  text-transform: uppercase;
+}
+.nav-logo-text span { color: var(--red); }
+.nav-links { display: flex; align-items: center; gap: 0; }
+.nav-links a {
+  padding: 0 22px;
+  height: 72px;
+  display: flex; align-items: center;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--mid);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.2s;
+  border-bottom: 3px solid transparent;
+}
+.nav-links a:hover { color: var(--red); border-bottom-color: var(--red); }
+.nav-links a.active { color: var(--red); border-bottom-color: var(--red); }
+.nav-cta {
+  margin-left: 20px;
+  background: var(--red);
+  color: var(--white) !important;
+  padding: 12px 28px !important;
+  height: auto !important;
+  border: none !important;
+  font-weight: 700 !important;
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(--red-dark) !important; color: var(--white) !important; }
+
+/* ─── HERO ─── */
+.hero {
+  margin-top: 72px;
+  height: calc(100vh - 72px);
+  min-height: 600px;
+  position: relative;
+  display: flex; align-items: center;
+  overflow: hidden;
+  background: var(--dark);
+}
+.hero-bg-pattern {
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(200,16,46,0.03) 40px, rgba(200,16,46,0.03) 41px);
+}
+/* Hero large text watermark */
+.hero-watermark {
+  position: absolute;
+  bottom: -30px; right: -20px;
+  font-size: 220px;
+  font-weight: 900;
+  letter-spacing: -8px;
+  color: rgba(255,255,255,0.025);
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+.hero-left {
+  flex: 1;
+  padding: 80px 60px;
+  position: relative; z-index: 2;
+}
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 28px;
+}
+.hero-eyebrow-line {
+  width: 40px; height: 2px; background: var(--red);
+}
+.hero-eyebrow-text {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+.hero h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: clamp(44px, 6vw, 88px);
+  line-height: 1.05;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  margin-bottom: 28px;
+}
+.hero h1 .red { color: var(--red); }
+.hero-desc {
+  font-size: 15px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.8;
+  max-width: 460px;
+  margin-bottom: 48px;
+  font-weight: 300;
+}
+.hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+.btn-red {
+  background: var(--red);
+  color: var(--white);
+  padding: 16px 40px;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-red:hover { background: var(--red-dark); transform: translateY(-2px); }
+.btn-outline-white {
+  background: transparent;
+  color: rgba(255,255,255,0.8);
+  padding: 15px 40px;
+  border: 1px solid rgba(255,255,255,0.25);
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s;
+}
+.btn-outline-white:hover { border-color: var(--white); color: var(--white); }
+
+/* Hero right panel */
+.hero-right {
+  width: 380px;
+  height: 100%;
+  background: rgba(200,16,46,0.08);
+  border-left: 1px solid rgba(200,16,46,0.2);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 60px 48px;
+  position: relative; z-index: 2;
+}
+.hero-stat {
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.hero-stat:last-child { border-bottom: none; }
+.hero-stat-num {
+  font-size: 52px; font-weight: 900;
+  color: var(--white);
+  line-height: 1;
+  letter-spacing: -2px;
+}
+.hero-stat-num span { color: var(--red); font-size: 36px; }
+.hero-stat-label {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-top: 6px;
+}
+
+/* ─── TICKER ─── */
+.ticker {
+  background: var(--red);
+  padding: 14px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-inner {
+  display: inline-block;
+  animation: ticker 28s linear infinite;
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.ticker-item {
+  display: inline-block;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(255,255,255,0.9);
+  margin: 0 40px;
+}
+.ticker-dot {
+  display: inline-block;
+  width: 4px; height: 4px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 50%;
+  vertical-align: middle;
+  margin: 0 20px;
+}
+
+/* ─── ABOUT ─── */
+.about {
+  padding: 120px 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: center;
+}
+.section-tag {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 20px;
+}
+.section-tag-bar { width: 32px; height: 3px; background: var(--red); }
+.section-tag-text {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--red);
+}
+.about h2 {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.about p {
+  font-size: 15px; color: var(--gray);
+  line-height: 1.85; font-weight: 300;
+  margin-bottom: 20px;
+}
+.about-highlights {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.highlight-item {
+  padding: 20px;
+  background: var(--light-gray);
+  border-left: 3px solid var(--red);
+}
+.highlight-item h4 {
+  font-size: 13px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.highlight-item p {
+  font-size: 13px; margin: 0; color: var(--gray);
+}
+.about-visual {
+  position: relative;
+}
+.about-img-block {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: var(--light-gray);
+  position: relative; overflow: hidden;
+}
+/* Architectural illustration */
+.about-img-block svg { width: 100%; height: 100%; }
+.about-badge {
+  position: absolute;
+  bottom: -24px; right: -24px;
+  width: 140px; height: 140px;
+  background: var(--red);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+}
+.about-badge-num {
+  font-size: 46px; font-weight: 900;
+  color: var(--white); line-height: 1;
+}
+.about-badge-label {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+  margin-top: 4px;
+}
+
+/* ─── STATS STRIP ─── */
+.stats-strip {
+  background: var(--dark);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.stat-cell {
+  padding: 50px 40px;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+  position: relative;
+}
+.stat-cell:last-child { border-right: none; }
+.stat-cell::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 40px; height: 3px;
+  background: var(--red);
+}
+.stat-cell-num {
+  font-size: 56px; font-weight: 900;
+  color: var(--white); line-height: 1;
+  letter-spacing: -2px;
+}
+.stat-cell-num sup { font-size: 28px; color: var(--red); }
+.stat-cell-label {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-top: 10px;
+}
+
+/* ─── SERVICES ─── */
+.services {
+  padding: 120px 60px;
+  background: var(--light-gray);
+}
+.services-top {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 70px;
+}
+.services-top h2 {
+  font-size: clamp(32px, 4vw, 52px); font-weight: 800;
+  text-transform: uppercase; letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.svc-card {
+  background: var(--white);
+  padding: 48px 40px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+}
+.svc-card:hover {
+  background: var(--dark);
+  border-bottom-color: var(--red);
+}
+.svc-card:hover .svc-num { color: rgba(200,16,46,0.12); }
+.svc-card:hover .svc-title { color: var(--white); }
+.svc-card:hover .svc-desc { color: rgba(255,255,255,0.5); }
+.svc-card:hover .svc-icon-wrap { background: var(--red); }
+.svc-card:hover .svc-arrow { color: var(--red); }
+.svc-icon-wrap {
+  width: 52px; height: 52px;
+  background: var(--light-gray);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 28px;
+  transition: background 0.3s;
+  font-size: 22px;
+}
+.svc-num {
+  position: absolute; top: 20px; right: 28px;
+  font-size: 80px; font-weight: 900;
+  color: rgba(0,0,0,0.04); line-height: 1;
+  transition: color 0.3s;
+}
+.svc-title {
+  font-size: 17px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 14px;
+  transition: color 0.3s;
+}
+.svc-desc {
+  font-size: 13px; color: var(--gray); line-height: 1.75;
+  font-weight: 300;
+  transition: color 0.3s;
+}
+.svc-arrow {
+  margin-top: 28px;
+  font-size: 20px; color: var(--red);
+  display: block;
+  transition: color 0.3s, transform 0.3s;
+}
+.svc-card:hover .svc-arrow { transform: translateX(6px); }
+
+/* ─── CONTACT ─── */
+.contact {
+  padding: 120px 60px;
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: start;
+}
+.contact-left h2 {
+  font-size: clamp(32px, 4vw, 52px); font-weight: 800;
+  text-transform: uppercase; letter-spacing: -0.5px;
+  line-height: 1.1; margin-bottom: 28px;
+}
+.contact-left p {
+  font-size: 15px; color: var(--gray);
+  line-height: 1.85; font-weight: 300;
+  margin-bottom: 48px;
+}
+.contact-info-list { list-style: none; }
+.contact-info-item {
+  display: flex; gap: 20px; align-items: flex-start;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+.contact-info-item:first-child { border-top: 1px solid var(--border); }
+.ci-icon {
+  width: 40px; height: 40px; background: var(--red);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+  color: white;
+}
+.ci-label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--red); margin-bottom: 4px;
+}
+.ci-value {
+  font-size: 14px; font-weight: 500; line-height: 1.5;
+}
+/* Form */
+.contact-form { display: flex; flex-direction: column; gap: 16px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+.form-group label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--mid);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: var(--light-gray);
+  border: 2px solid transparent;
+  padding: 14px 18px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px; font-weight: 400;
+  color: var(--dark);
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: var(--red); }
+.form-group textarea { resize: vertical; min-height: 130px; }
+.form-group select { appearance: none; cursor: pointer; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--dark);
+  padding: 60px 60px 30px;
+}
+.footer-top {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px; padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.footer-logo {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+}
+.footer-logo-mark {
+  width: 36px; height: 36px; background: var(--red);
+  display: flex; align-items: center; justify-content: center;
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 75% 100%, 0 100%);
+}
+.footer-logo-text {
+  font-size: 16px; font-weight: 800;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--white);
+}
+.footer-logo-text span { color: var(--red); }
+.footer-brand p {
+  font-size: 13px; color: rgba(255,255,255,0.4);
+  line-height: 1.75; max-width: 280px; font-weight: 300;
+}
+.footer-col h4 {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(255,255,255,0.6); margin-bottom: 20px;
+}
+.footer-col a {
+  display: block; text-decoration: none;
+  font-size: 13px; color: rgba(255,255,255,0.4);
+  margin-bottom: 12px; font-weight: 300;
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--red); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 28px;
+}
+.footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.25); }
+.footer-socials { display: flex; gap: 10px; }
+.social-btn {
+  width: 34px; height: 34px;
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.4);
+  font-size: 12px; text-decoration: none;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+.social-btn:hover { background: var(--red); border-color: var(--red); color: white; }
+
+/* ─── SCROLL ANIMATIONS ─── */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 1024px) {
+  .navbar { padding: 0 24px; }
+  .nav-links { display: none; }
+  .hero { flex-direction: column; height: auto; padding-top: 0; }
+  .hero-left { padding: 60px 24px; }
+  .hero-right { width: 100%; padding: 40px 24px; flex-direction: row; flex-wrap: wrap; gap: 0; }
+  .hero-stat { padding: 20px; flex: 1; min-width: 120px; border-bottom: none; border-right: 1px solid rgba(255,255,255,0.07); }
+  .about { grid-template-columns: 1fr; padding: 80px 24px; gap: 60px; }
+  .about-visual { order: -1; }
+  .stats-strip { grid-template-columns: repeat(2, 1fr); }
+  .services { padding: 80px 24px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .services-top { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .contact { padding: 80px 24px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 60px; }
+  .form-row { grid-template-columns: 1fr; }
+  footer { padding: 48px 24px 24px; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .footer-brand { grid-column: 1 / -1; }
+  .hero-watermark { font-size: 100px; }
+}
+/* ─── PROJECTS ─── */
+.projects {
+  padding: 120px 60px 60px 60px;
+  background: var(--white);
+}
+.projects-top {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.projects-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.project-card {
+  background: var(--light-gray);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.project-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(200,16,46,0.10);
+}
+.project-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+.project-info {
+  padding: 22px 20px 18px 20px;
+}
+.project-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--red);
+  text-transform: uppercase;
+}
+.project-desc {
+  font-size: 13px;
+  color: var(--gray);
+  font-weight: 400;
+}
+@media (max-width: 1024px) {
+  .projects { padding: 80px 24px 24px 24px; }
+  .projects-gallery { grid-template-columns: 1fr; gap: 28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 22 22" fill="none"><path d="M4 18V8L11 3L18 8V18H13V13H9V18H4Z" fill="white" stroke="white" stroke-width="0.5"/></svg>
+    </div>
+    <div class="nav-logo-text">HOANG VIET<span>construction</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="#about" class="active">Về Chúng Tôi</a>
+    <a href="#services">Dịch Vụ</a>
+    <a href="tu-van-thiet-ke.html" >Tư Vấn Thiết Kế</a>
+    <a href="xaydungdandung.html" class="active">Xây Dựng Dân Dụng</a>
+    <a href="#contact" class="nav-cta">Báo Giá Ngay</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-watermark">BUILD</div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">Tổng Thầu Xây Dựng Hàng Đầu Việt Nam</span>
+    </div>
+    <h1>KIẾN TẠO<br>KHÔNG<br><span class="red">GIAN SỐNG</span></h1>
+    <p class="hero-desc">HoangViet construction – đơn vị tổng thầu uy tín với hơn 18 năm kinh nghiệm xây dựng dân dụng và công nghiệp. Chúng tôi cam kết mang đến công trình chất lượng, đúng tiến độ và bền vững.</p>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn-red">Nhận Báo Giá Miễn Phí</a>
+      <a href="#about" class="btn-outline-white">Tìm Hiểu Thêm</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-stat">
+      <div class="hero-stat-num">500<span>+</span></div>
+      <div class="hero-stat-label">Dự Án Hoàn Thành</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">18<span>+</span></div>
+      <div class="hero-stat-label">Năm Kinh Nghiệm</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">350<span>+</span></div>
+      <div class="hero-stat-label">Kỹ Sư & Công Nhân</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Xây Dựng Dân Dụng</span><span class="ticker-dot"></span>
+    <span class="ticker-item">Công Trình Công Nghiệp</span><span class="ticker-dot"></span>
+    <span class="ticker-item">Thiết Kế & Thi Công</span><span class="ticker-dot"></span>
+    <span class="ticker-item">Đúng Tiến Độ – Đúng Ngân Sách</span><span class="ticker-dot"></span>
+    <span class="ticker-item">Bảo Hành 5 Năm</span><span class="ticker-dot"></span>
+    <span class="ticker-item">Chất Lượng Quốc Tế</span><span class="ticker-dot"></span>
+    <!-- repeat for seamless -->
+    <span class="ticker-item">Xây Dựng Dân Dụng</span><span class="ticker-dot"></span>
+    <span class="ticker-item">Công Trình Công Nghiệp</span><span class="ticker-dot"></span>
+    <span class="ticker-item">Thiết Kế & Thi Công</span><span class="ticker-dot"></span>
+    <span class="ticker-item">Đúng Tiến Độ – Đúng Ngân Sách</span><span class="ticker-dot"></span>
+    <span class="ticker-item">Bảo Hành 5 Năm</span><span class="ticker-dot"></span>
+    <span class="ticker-item">Chất Lượng Quốc Tế</span><span class="ticker-dot"></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="reveal">
+    <div class="section-tag"><div class="section-tag-bar"></div><span class="section-tag-text">Về Chúng Tôi</span></div>
+    <h2>ĐỒNG HÀNH<br>TỪNG CÔNG TRÌNH</h2>
+    <p>Được thành lập năm 2006 tại TP.HCM, HoangViet construction đã và đang là đối tác tin cậy của hàng trăm khách hàng cá nhân, doanh nghiệp và tập đoàn lớn trong cả nước. Chúng tôi cung cấp giải pháp xây dựng toàn diện — từ thiết kế đến bàn giao.</p>
+    <p>Với đội ngũ hơn 350 kỹ sư, kiến trúc sư và công nhân có tay nghề cao, cùng hệ thống quản lý dự án chuyên nghiệp, HoangViet construction tự hào là một trong những nhà thầu uy tín nhất miền Nam Việt Nam.</p>
+    <div class="about-highlights">
+      <div class="highlight-item">
+        <h4>Tổng Thầu EPC</h4>
+        <p>Thiết kế – Mua sắm – Thi công trọn gói</p>
+      </div>
+      <div class="highlight-item">
+        <h4>ISO 9001:2015</h4>
+        <p>Hệ thống quản lý chất lượng đạt chuẩn</p>
+      </div>
+      <div class="highlight-item">
+        <h4>An Toàn Lao Động</h4>
+        <p>Tuân thủ OHSAS 18001 trên mọi công trường</p>
+      </div>
+      <div class="highlight-item">
+        <h4>Xây Dựng Xanh</h4>
+        <p>Cam kết phát triển bền vững, thân thiện môi trường</p>
+      </div>
+    </div>
+  </div>
+  <div class="about-visual reveal">
+    <div class="about-img-block">
+      <svg viewBox="0 0 500 620" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="500" height="620" fill="#EFEFEF"/>
+        <!-- Sky gradient -->
+        <rect width="500" height="300" fill="url(#sky)"/>
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#B8D4E8"/>
+            <stop offset="100%" stop-color="#E8EEF2"/>
+          </linearGradient>
+          <linearGradient id="bldg1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#D0D8E0"/>
+            <stop offset="100%" stop-color="#A0AABB"/>
+          </linearGradient>
+        </defs>
+        <!-- Background buildings -->
+        <rect x="320" y="120" width="80" height="280" fill="#CBD5DD" opacity="0.6"/>
+        <rect x="80" y="180" width="60" height="220" fill="#BFC9D1" opacity="0.5"/>
+        <!-- Main building -->
+        <rect x="140" y="60" width="220" height="440" fill="url(#bldg1)"/>
+        <!-- Floors -->
+        <line x1="140" y1="120" x2="360" y2="120" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+        <line x1="140" y1="180" x2="360" y2="180" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+        <line x1="140" y1="240" x2="360" y2="240" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+        <line x1="140" y1="300" x2="360" y2="300" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+        <line x1="140" y1="360" x2="360" y2="360" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+        <line x1="140" y1="420" x2="360" y2="420" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+        <!-- Windows -->
+        <rect x="160" y="78" width="36" height="30" fill="rgba(173,212,230,0.8)" rx="1"/>
+        <rect x="212" y="78" width="36" height="30" fill="rgba(173,212,230,0.5)" rx="1"/>
+        <rect x="264" y="78" width="36" height="30" fill="rgba(173,212,230,0.8)" rx="1"/>
+        <rect x="316" y="78" width="28" height="30" fill="rgba(173,212,230,0.5)" rx="1"/>
+
+        <rect x="160" y="138" width="36" height="30" fill="rgba(200,16,46,0.35)" rx="1"/>
+        <rect x="212" y="138" width="36" height="30" fill="rgba(173,212,230,0.6)" rx="1"/>
+        <rect x="264" y="138" width="36" height="30" fill="rgba(173,212,230,0.6)" rx="1"/>
+        <rect x="316" y="138" width="28" height="30" fill="rgba(200,16,46,0.25)" rx="1"/>
+
+        <rect x="160" y="198" width="36" height="30" fill="rgba(173,212,230,0.6)" rx="1"/>
+        <rect x="212" y="198" width="36" height="30" fill="rgba(200,16,46,0.35)" rx="1"/>
+        <rect x="264" y="198" width="36" height="30" fill="rgba(173,212,230,0.5)" rx="1"/>
+        <rect x="316" y="198" width="28" height="30" fill="rgba(173,212,230,0.7)" rx="1"/>
+
+        <rect x="160" y="258" width="36" height="30" fill="rgba(173,212,230,0.5)" rx="1"/>
+        <rect x="212" y="258" width="36" height="30" fill="rgba(173,212,230,0.7)" rx="1"/>
+        <rect x="264" y="258" width="36" height="30" fill="rgba(200,16,46,0.3)" rx="1"/>
+        <rect x="316" y="258" width="28" height="30" fill="rgba(173,212,230,0.5)" rx="1"/>
+
+        <rect x="160" y="318" width="36" height="30" fill="rgba(200,16,46,0.3)" rx="1"/>
+        <rect x="212" y="318" width="36" height="30" fill="rgba(173,212,230,0.6)" rx="1"/>
+        <rect x="264" y="318" width="36" height="30" fill="rgba(173,212,230,0.6)" rx="1"/>
+        <rect x="316" y="318" width="28" height="30" fill="rgba(200,16,46,0.2)" rx="1"/>
+
+        <rect x="160" y="378" width="36" height="30" fill="rgba(173,212,230,0.6)" rx="1"/>
+        <rect x="212" y="378" width="36" height="30" fill="rgba(200,16,46,0.3)" rx="1"/>
+        <rect x="264" y="378" width="36" height="30" fill="rgba(173,212,230,0.5)" rx="1"/>
+        <rect x="316" y="378" width="28" height="30" fill="rgba(173,212,230,0.7)" rx="1"/>
+
+        <!-- Entrance -->
+        <rect x="205" y="450" width="90" height="110" fill="rgba(173,212,230,0.4)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+        <!-- Ground -->
+        <rect x="0" y="500" width="500" height="120" fill="#DDD"/>
+        <rect x="0" y="500" width="500" height="10" fill="#CCC"/>
+        <!-- Red accent stripe -->
+        <rect x="140" y="56" width="220" height="8" fill="#C8102E" opacity="0.8"/>
+        <!-- Crane silhouette -->
+        <line x1="380" y1="0" x2="380" y2="130" stroke="#999" stroke-width="3"/>
+        <line x1="340" y1="15" x2="420" y2="15" stroke="#999" stroke-width="3"/>
+        <line x1="355" y1="15" x2="355" y2="60" stroke="#999" stroke-width="1.5" stroke-dasharray="5,5"/>
+        <!-- Trees -->
+        <ellipse cx="110" cy="490" rx="30" ry="40" fill="#8fbd78" opacity="0.7"/>
+        <rect x="107" y="510" width="6" height="30" fill="#6b8f5b" opacity="0.7"/>
+        <ellipse cx="400" cy="488" rx="25" ry="35" fill="#8fbd78" opacity="0.6"/>
+        <rect x="397" y="507" width="6" height="28" fill="#6b8f5b" opacity="0.6"/>
+      </svg>
+    </div>
+    <div class="about-badge">
+      <div class="about-badge-num">18</div>
+      <div class="about-badge-label">Năm Kinh<br>Nghiệm</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stat-cell reveal">
+    <div class="stat-cell-num">500<sup>+</sup></div>
+    <div class="stat-cell-label">Dự Án Hoàn Thành</div>
+  </div>
+  <div class="stat-cell reveal">
+    <div class="stat-cell-num">350<sup>+</sup></div>
+    <div class="stat-cell-label">Nhân Sự Chuyên Nghiệp</div>
+  </div>
+  <div class="stat-cell reveal">
+    <div class="stat-cell-num">99<sup>%</sup></div>
+    <div class="stat-cell-label">Đúng Tiến Độ</div>
+  </div>
+  <div class="stat-cell reveal">
+    <div class="stat-cell-num">18<sup>+</sup></div>
+    <div class="stat-cell-label">Năm Kinh Nghiệm</div>
+  </div>
+</div>
+<!-- PROJECTS (DỰ ÁN TIÊU BIỂU) -->
+<section class="projects" id="projects">
+  <div class="projects-top reveal">
+    <div class="section-tag"><div class="section-tag-bar"></div><span class="section-tag-text">Dự Án Tiêu Biểu</span></div>
+    <h2>NHỮNG CÔNG TRÌNH<br>TIÊU BIỂU</h2>
+    <p style="color:var(--gray);max-width:600px;margin:18px 0 40px 0;font-size:15px;font-weight:300">
+      Một số dự án nổi bật mà HoangViet construction đã thực hiện trên khắp cả nước. Chúng tôi tự hào đồng hành cùng khách hàng kiến tạo nên những công trình bền vững, thẩm mỹ và hiện đại.
+    </p>
+  </div>
+  <div class="projects-gallery">
+    <div class="project-card reveal">
+      <img src="images/project1.jpg" alt="Dự án 1" class="project-img">
+      <div class="project-info">
+        <h4 class="project-title">Biệt Thự Cao Cấp Quận 7</h4>
+        <p class="project-desc">Thi công trọn gói biệt thự hiện đại, diện tích 500m², hoàn thành 2024.</p>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <img src="images/project2.jpg" alt="Dự án 2" class="project-img">
+      <div class="project-info">
+        <h4 class="project-title">Nhà Máy Sản Xuất Long An</h4>
+        <p class="project-desc">Tổng thầu xây dựng nhà xưởng công nghiệp, diện tích 10.000m².</p>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <img src="images/project3.jpg" alt="Dự án 3" class="project-img">
+      <div class="project-info">
+        <h4 class="project-title">Trường Quốc Tế TP.HCM</h4>
+        <p class="project-desc">Thi công trường học chuẩn quốc tế, thiết kế xanh, hoàn thành 2023.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-top reveal">
+    <div>
+      <div class="section-tag"><div class="section-tag-bar"></div><span class="section-tag-text">Dịch Vụ</span></div>
+      <h2>GIẢI PHÁP<br>XÂY DỰNG TOÀN DIỆN</h2>
+    </div>
+    <a href="#contact" class="btn-red" style="flex-shrink:0">Tư Vấn Ngay →</a>
+  </div>
+  <div class="services-grid">
+    <div class="svc-card reveal">
+      <div class="svc-icon-wrap">🏗️</div>
+      <div class="svc-num">01</div>
+      <div class="svc-title">Xây Dựng Dân Dụng</div>
+      <p class="svc-desc">Nhà ở, biệt thự, chung cư, trường học, bệnh viện — thi công từ móng đến hoàn thiện theo đúng thiết kế và tiêu chuẩn kỹ thuật.</p>
+      <span class="svc-arrow">→</span>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-icon-wrap">🏢</div>
+      <div class="svc-num">02</div>
+      <div class="svc-title">Công Trình Thương Mại</div>
+      <p class="svc-desc">Văn phòng, TTTM, khách sạn, resort — không gian thương mại hiện đại, tối ưu công năng và thẩm mỹ theo xu hướng quốc tế.</p>
+      <span class="svc-arrow">→</span>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-icon-wrap">🏭</div>
+      <div class="svc-num">03</div>
+      <div class="svc-title">Công Trình Công Nghiệp</div>
+      <p class="svc-desc">Nhà xưởng, kho vận, nhà máy sản xuất — đáp ứng yêu cầu kỹ thuật công nghiệp, an toàn PCCC và tiêu chuẩn môi trường.</p>
+      <span class="svc-arrow">→</span>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-icon-wrap">📐</div>
+      <div class="svc-num">04</div>
+      <div class="svc-title">Thiết Kế & Tư Vấn</div>
+      <p class="svc-desc">Lập bản vẽ kiến trúc, kết cấu, M&E; xin phép xây dựng; tư vấn kỹ thuật và lựa chọn giải pháp vật liệu tối ưu cho dự án.</p>
+      <span class="svc-arrow">→</span>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-icon-wrap">🔧</div>
+      <div class="svc-num">05</div>
+      <div class="svc-title">Cải Tạo & Nâng Cấp</div>
+      <p class="svc-desc">Sửa chữa, cải tạo, nâng tầng công trình cũ — phục hồi kết cấu, nâng cao chất lượng và đưa không gian vào tiêu chuẩn mới.</p>
+      <span class="svc-arrow">→</span>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-icon-wrap">🌿</div>
+      <div class="svc-num">06</div>
+      <div class="svc-title">Nội Thất & Cảnh Quan</div>
+      <p class="svc-desc">Thiết kế và thi công nội thất, sân vườn cảnh quan — tạo hệ sinh thái không gian sống hoàn chỉnh và đồng bộ từ trong ra ngoài.</p>
+      <span class="svc-arrow">→</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-grid">
+    <div class="reveal">
+      <div class="section-tag"><div class="section-tag-bar"></div><span class="section-tag-text">Liên Hệ</span></div>
+      <h2>BẮT ĐẦU<br>DỰ ÁN<br>CỦA BẠN</h2>
+      <p>Hãy chia sẻ ý tưởng của bạn với chúng tôi. Đội ngũ chuyên gia sẽ tư vấn miễn phí và gửi báo giá chi tiết trong vòng 24 giờ làm việc.</p>
+      <ul class="contact-info-list">
+        <li class="contact-info-item">
+          <div class="ci-icon">📍</div>
+          <div>
+            <div class="ci-label">Địa Chỉ</div>
+            <div class="ci-value">123 Nguyễn Huệ, Phường Bến Nghé<br>Quận 1, TP. Hồ Chí Minh</div>
+          </div>
+        </li>
+        <li class="contact-info-item">
+          <div class="ci-icon">📍</div>
+          <div>
+            <div class="ci-label">Địa Chỉ</div>
+            <div class="ci-value">123 Nguyễn Huệ, Phường Bến Nghé<br>Quận 1, TP. Hồ Chí Minh</div>
+          </div>
+        </li>
+        <li class="contact-info-item">
+          <div class="ci-icon">📞</div>
+          <div>
+            <div class="ci-label">Điện Thoại</div>
+            <div class="ci-value">(028) 3822 1234<br>0909 123 456 (Hotline 24/7)</div>
+          </div>
+        </li>
+        <li class="contact-info-item">
+          <div class="ci-icon">✉️</div>
+          <div>
+            <div class="ci-label">Email</div>
+            <div class="ci-value">info@hoangvietcons.vn<br>baogia@hoangvietcons.vn</div>
+          </div>
+        </li>
+        <li class="contact-info-item">
+          <div class="ci-icon">🕐</div>
+          <div>
+            <div class="ci-label">Giờ Làm Việc</div>
+            <div class="ci-value">Thứ 2 – Thứ 7: 07:30 – 17:30<br>Chủ nhật: Theo hẹn</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="reveal">
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Họ và Tên *</label>
+            <input type="text" placeholder="Nguyễn Văn A" required>
+          </div>
+          <div class="form-group">
+            <label>Số Điện Thoại *</label>
+            <input type="tel" placeholder="0909 000 000" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="email@example.com">
+        </div>
+        <div class="form-group">
+          <label>Loại Công Trình</label>
+          <select>
+            <option value="">-- Chọn loại công trình --</option>
+            <option>Nhà ở / Biệt thự</option>
+            <option>Văn phòng / Thương mại</option>
+            <option>Công nghiệp / Nhà xưởng</option>
+            <option>Cải tạo / Sửa chữa</option>
+            <option>Khác</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Mô Tả Yêu Cầu</label>
+          <textarea placeholder="Diện tích, số tầng, ngân sách dự kiến, địa điểm xây dựng..."></textarea>
+        </div>
+        <button type="submit" class="btn-red" id="submit-btn" style="padding:18px;font-size:12px;letter-spacing:2px;border:none;cursor:pointer;width:100%">
+          GỬI YÊU CẦU TƯ VẤN
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="footer-logo-mark">
+          <svg viewBox="0 0 22 22" fill="none" width="20"><path d="M4 18V8L11 3L18 8V18H13V13H9V18H4Z" fill="white"/></svg>
+        </div>
+        <div class="footer-logo-text"><span>HOANGVIET</span><span>construction</span></div>
+      </div>
+      <p>Tổng thầu xây dựng uy tín hàng đầu Việt Nam. Cam kết chất lượng – đúng tiến độ – bảo hành lâu dài trên mọi công trình.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Công Ty</h4>
+      <a href="#about">Về Chúng Tôi</a>
+      <a href="#">Đội Ngũ</a>
+      <a href="#">Chứng Nhận</a>
+      <a href="#">Tuyển Dụng</a>
+    </div>
+    <div class="footer-col">
+      <h4>Dịch Vụ</h4>
+      <a href="#services">Xây Dựng Dân Dụng</a>
+      <a href="#services">Công Trình Thương Mại</a>
+      <a href="#services">Công Nghiệp</a>
+      <a href="#services">Thiết Kế & Tư Vấn</a>
+    </div>
+    <div class="footer-col">
+      <h4>Liên Hệ</h4>
+      <a href="#">(028) 3822 1234</a>
+      <a href="#">0909 123 456</a>
+      <a href="#">info@hoangvietcons.vn</a>
+      <a href="#">Quận 1, TP.HCM</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Hoang Viet Construction JSC. Bảo lưu mọi quyền.</p>
+    <div class="footer-socials">
+      <a class="social-btn" href="#">f</a>
+      <a class="social-btn" href="#">in</a>
+      <a class="social-btn" href="#">yt</a>
+      <a class="social-btn" href="#">z</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+
+  // Nav active on scroll
+  const sections = ['about','services','contact'];
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY + 100;
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const link = document.querySelector(`.nav-links a[href="#${id}"]`);
+      if (!link) return;
+      if (y >= el.offsetTop && y < el.offsetTop + el.offsetHeight) {
+        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    btn.textContent = '✓ ĐÃ GỬI – CHÚNG TÔI SẼ LIÊN HỆ TRONG 24H!';
+    btn.style.background = '#28a745';
+    setTimeout(() => {
+      btn.textContent = 'GỬI YÊU CẦU TƯ VẤN';
+      btn.style.background = '';
+    }, 4000);
+  }
+</script>
+</body>
+</html>
+
+
+

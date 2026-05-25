@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tư Vấn Thiết Kế – Viet Construction</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #C8102E; --red-dark: #A00C24;
+  --dark: #1A1A1A; --mid: #3C3C3C; --gray: #6B6B6B;
+  --light: #F4F4F4; --border: #E5E5E5; --white: #FFFFFF;
+  --gold: #B8952A;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; color: var(--dark); background: var(--white); overflow-x: hidden; }
+
+/* NAV */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: var(--white); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 60px; height: 72px; box-shadow: 0 1px 12px rgba(0,0,0,0.06);
+}
+.nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.nav-logo-mark {
+  width: 40px; height: 40px; background: var(--red);
+  display: flex; align-items: center; justify-content: center;
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 75% 100%, 0 100%);
+}
+.nav-logo-text { font-size: 18px; font-weight: 800; letter-spacing: 1.5px; color: var(--dark); text-transform: uppercase; }
+.nav-logo-text span { color: var(--red); }
+.nav-links { display: flex; align-items: center; gap: 0; }
+.nav-links a {
+  padding: 0 20px; height: 72px; display: flex; align-items: center;
+  font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--mid); text-decoration: none;
+  border-bottom: 3px solid transparent; transition: color 0.2s, border-color 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--red); border-bottom-color: var(--red); }
+.nav-back {
+  background: var(--light); color: var(--mid) !important;
+  padding: 10px 20px !important; height: auto !important; border: none !important;
+  font-weight: 700 !important; margin-right: 12px;
+}
+.nav-back:hover { background: var(--border) !important; }
+.nav-cta {
+  background: var(--red); color: var(--white) !important;
+  padding: 10px 24px !important; height: auto !important; border: none !important; font-weight: 700 !important;
+}
+.nav-cta:hover { background: var(--red-dark) !important; }
+
+/* HERO - khác biệt hơn: nền sáng với accent đỏ */
+.hero {
+  margin-top: 72px; min-height: 540px;
+  background: var(--white);
+  position: relative; display: flex; align-items: stretch; overflow: hidden;
+}
+.hero-left {
+  flex: 1; padding: 80px 60px;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 2;
+}
+.hero-right {
+  width: 420px; background: var(--dark); position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-right-pattern {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(200,16,46,0.05) 20px, rgba(200,16,46,0.05) 21px);
+}
+/* Ruler / blueprint illustration */
+.blueprint-svg { position: relative; z-index: 2; padding: 40px; }
+.breadcrumb { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+.breadcrumb a { font-size: 12px; color: var(--gray); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--red); }
+.breadcrumb span { color: var(--border); }
+.breadcrumb .current { color: var(--red); font-weight: 600; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 10px;
+  border: 2px solid var(--red); padding: 6px 16px; margin-bottom: 24px; width: fit-content;
+}
+.hero-tag span { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--red); }
+.hero h1 {
+  font-size: clamp(38px, 5.5vw, 72px); font-weight: 900;
+  text-transform: uppercase; letter-spacing: -1px; line-height: 1.05; color: var(--dark);
+  max-width: 580px;
+}
+.hero h1 em { color: var(--red); font-style: normal; }
+.hero-sub {
+  margin-top: 20px; font-size: 15px; color: var(--gray);
+  font-weight: 300; max-width: 480px; line-height: 1.7; margin-bottom: 36px;
+}
+.hero-badges { display: flex; gap: 12px; flex-wrap: wrap; }
+.badge {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--light); padding: 10px 16px;
+  font-size: 12px; font-weight: 600; color: var(--mid);
+}
+.badge::before { content: '✓'; color: var(--red); font-weight: 700; }
+
+/* Quick stats - dark strip */
+.quick-stats {
+  background: var(--dark); display: grid; grid-template-columns: repeat(4, 1fr);
+}
+.qs-item { padding: 28px 30px; text-align: center; border-right: 1px solid rgba(255,255,255,0.06); position: relative; }
+.qs-item:last-child { border-right: none; }
+.qs-item::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 32px; height: 3px; background: var(--red); }
+.qs-num { font-size: 34px; font-weight: 900; color: white; line-height: 1; }
+.qs-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 6px; }
+
+/* SERVICES DETAIL */
+.section { padding: 100px 60px; }
+.section.gray { background: var(--light); }
+.section-tag { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.section-tag-bar { width: 32px; height: 3px; background: var(--red); }
+.section-tag-text { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--red); }
+.section-title { font-size: clamp(28px, 4vw, 46px); font-weight: 800; text-transform: uppercase; letter-spacing: -0.5px; line-height: 1.1; margin-bottom: 20px; }
+.section-desc { font-size: 15px; color: var(--gray); line-height: 1.85; font-weight: 300; max-width: 640px; }
+
+/* DỊCH VỤ THIẾT KẾ */
+.design-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-top: 60px; }
+.design-card {
+  background: var(--white); padding: 48px 40px;
+  position: relative; overflow: hidden; transition: all 0.3s;
+  border-bottom: 3px solid transparent; cursor: pointer;
+}
+.design-card:hover { background: var(--dark); border-bottom-color: var(--red); }
+.design-card:hover .dc-title { color: white; }
+.design-card:hover .dc-desc { color: rgba(255,255,255,0.5); }
+.design-card:hover .dc-icon-wrap { background: var(--red); }
+.design-card:hover .dc-list li { color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.08); }
+.dc-num { position: absolute; top: 20px; right: 28px; font-size: 80px; font-weight: 900; color: rgba(0,0,0,0.04); line-height: 1; transition: color 0.3s; }
+.design-card:hover .dc-num { color: rgba(255,255,255,0.04); }
+.dc-icon-wrap { width: 56px; height: 56px; background: var(--light); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; font-size: 24px; transition: background 0.3s; }
+.dc-title { font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; transition: color 0.3s; }
+.dc-desc { font-size: 13px; color: var(--gray); line-height: 1.75; font-weight: 300; margin-bottom: 20px; transition: color 0.3s; }
+.dc-list { list-style: none; }
+.dc-list li { font-size: 12px; color: var(--mid); padding: 7px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; transition: all 0.3s; }
+.dc-list li:last-child { border-bottom: none; }
+.dc-list li::before { content: '→'; color: var(--red); font-weight: 700; font-size: 11px; }
+
+/* GÓI THIẾT KẾ */
+.packages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-top: 60px; }
+.pkg-card { background: var(--white); position: relative; overflow: hidden; }
+.pkg-card.featured { background: var(--dark); }
+.pkg-header { padding: 36px 32px 28px; }
+.pkg-badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; background: var(--red); color: white; margin-bottom: 16px; }
+.pkg-badge.outline { background: transparent; border: 1px solid rgba(255,255,255,0.2); }
+.pkg-name { font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.pkg-card.featured .pkg-name { color: white; }
+.pkg-price { font-size: 13px; font-weight: 700; color: var(--red); margin-bottom: 4px; }
+.pkg-price-note { font-size: 11px; color: var(--gray); font-weight: 300; }
+.pkg-card.featured .pkg-price-note { color: rgba(255,255,255,0.4); }
+.pkg-divider { height: 1px; background: var(--border); margin: 0 32px; }
+.pkg-card.featured .pkg-divider { background: rgba(255,255,255,0.08); }
+.pkg-body { padding: 28px 32px 36px; }
+.pkg-features { list-style: none; }
+.pkg-features li { font-size: 13px; color: var(--mid); padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
+.pkg-card.featured .pkg-features li { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.06); }
+.pkg-features li:last-child { border-bottom: none; }
+.pkg-features li::before { content: '✓'; color: var(--red); font-weight: 700; font-size: 11px; margin-top: 1px; flex-shrink: 0; }
+.pkg-cta { display: block; margin: 28px 32px 0; padding: 14px; text-align: center; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
+.pkg-cta.primary { background: var(--red); color: white; }
+.pkg-cta.primary:hover { background: var(--red-dark); }
+.pkg-cta.ghost { border: 2px solid var(--border); color: var(--mid); }
+.pkg-cta.ghost:hover { border-color: var(--red); color: var(--red); }
+.pkg-cta.featured-cta { background: white; color: var(--dark); }
+.pkg-cta.featured-cta:hover { background: var(--red); color: white; }
+.featured-star { position: absolute; top: 20px; right: 20px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--red); background: rgba(200,16,46,0.15); padding: 4px 10px; }
+
+/* PORTFOLIO MINI */
+.portfolio { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; margin-top: 60px; }
+.portfolio-item {
+  aspect-ratio: 1; background: var(--light);
+  position: relative; overflow: hidden; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.3s;
+}
+.portfolio-item:first-child { grid-column: span 2; grid-row: span 2; aspect-ratio: unset; min-height: 300px; }
+.portfolio-item:hover { transform: scale(0.98); }
+.pi-icon { font-size: 60px; opacity: 0.08; }
+.portfolio-item:first-child .pi-icon { font-size: 100px; }
+.pi-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(26,26,26,0.92), transparent);
+  padding: 20px 20px 16px;
+}
+.pi-cat { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 4px; }
+.pi-title { font-size: 13px; font-weight: 700; color: white; }
+.pi-year { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+/* CTA */
+.cta-section {
+  background: var(--red); padding: 80px 60px;
+  display: flex; align-items: center; justify-content: space-between; gap: 40px;
+}
+.cta-text h2 { font-size: 36px; font-weight: 800; text-transform: uppercase; color: white; letter-spacing: -0.5px; margin-bottom: 12px; }
+.cta-text p { font-size: 14px; color: rgba(255,255,255,0.75); max-width: 480px; line-height: 1.7; font-weight: 300; }
+.cta-actions { display: flex; gap: 16px; flex-shrink: 0; }
+.btn-white { background: white; color: var(--red); padding: 16px 36px; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; display: inline-block; transition: all 0.2s; }
+.btn-white:hover { background: var(--dark); color: white; }
+.btn-outline-white { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.4); padding: 14px 36px; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; display: inline-block; transition: all 0.2s; }
+.btn-outline-white:hover { border-color: white; }
+
+footer {
+  background: var(--dark); padding: 32px 60px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex; justify-content: space-between; align-items: center;
+}
+footer p { font-size: 12px; color: rgba(255,255,255,0.25); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 12px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--red); }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; } .reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; } .reveal-delay-4 { transition-delay: 0.4s; }
+
+@media (max-width: 1024px) {
+  .navbar { padding: 0 20px; }
+  .nav-links a:not(.nav-back):not(.nav-cta) { display: none; }
+  .hero { flex-direction: column; }
+  .hero-left { padding: 40px 20px; }
+  .hero-right { width: 100%; min-height: 240px; }
+  .quick-stats { grid-template-columns: repeat(2, 1fr); }
+  .section { padding: 60px 20px; }
+  .design-grid { grid-template-columns: 1fr; }
+  .packages-grid { grid-template-columns: 1fr; }
+  .portfolio { grid-template-columns: repeat(2, 1fr); }
+  .portfolio-item:first-child { grid-column: span 2; }
+  .cta-section { flex-direction: column; padding: 60px 20px; text-align: center; }
+  .cta-actions { flex-direction: column; width: 100%; }
+  footer { flex-direction: column; gap: 16px; padding: 24px 20px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a class="nav-logo" href="index.html">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 22 22" fill="none" width="20"><path d="M4 18V8L11 3L18 8V18H13V13H9V18H4Z" fill="white"/></svg>
+    </div>
+    <div class="nav-logo-text">VIET<span>CONSTRUCTION</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-back">← Trang Chủ</a>
+    <a href="index.html#about">Về Chúng Tôi</a>
+    <a href="tu-van-thiet-ke.html" class="active">Tư Vấn Thiết Kế</a>
+    <a href="xaydungdandung.html">Xây Dựng Dân Dụng</a>  
+    <a href="index.html#contact" class="nav-cta">Báo Giá</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="breadcrumb">
+      <a href="index.html">Trang Chủ</a><span>/</span>
+      <a href="index.html#services">Dịch Vụ</a><span>/</span>
+      <span class="current">Tư Vấn Thiết Kế</span>
+    </div>
+    <div class="hero-tag"><span>Dịch Vụ Thiết Kế</span></div>
+    <h1>TƯ VẤN<br><em>THIẾT KẾ</em><br>KIẾN TRÚC</h1>
+    <p class="hero-sub">Từ ý tưởng đến bản vẽ hoàn chỉnh — đội ngũ kiến trúc sư giàu kinh nghiệm của chúng tôi đồng hành cùng bạn trong từng quyết định thiết kế.</p>
+    <div class="hero-badges">
+      <div class="badge">Kiến Trúc Sư Có Chứng Chỉ</div>
+      <div class="badge">Phần Mềm 3D Hiện Đại</div>
+      <div class="badge">Tư Vấn Miễn Phí</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-pattern"></div>
+    <div class="blueprint-svg">
+      <svg viewBox="0 0 320 360" fill="none" xmlns="http://www.w3.org/2000/svg" width="280">
+        <!-- Blueprint background -->
+        <rect width="320" height="360" fill="#0d1a2e" rx="4"/>
+        <!-- Grid -->
+        <defs>
+          <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(100,160,255,0.08)" stroke-width="0.5"/>
+          </pattern>
+          <pattern id="grid2" width="100" height="100" patternUnits="userSpaceOnUse">
+            <path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(100,160,255,0.15)" stroke-width="0.5"/>
+          </pattern>
+        </defs>
+        <rect width="320" height="360" fill="url(#grid)"/>
+        <rect width="320" height="360" fill="url(#grid2)"/>
+        <!-- Floor plan -->
+        <rect x="30" y="60" width="260" height="200" stroke="rgba(100,180,255,0.7)" stroke-width="1.5" fill="rgba(100,180,255,0.04)"/>
+        <!-- Rooms partition -->
+        <line x1="150" y1="60" x2="150" y2="260" stroke="rgba(100,180,255,0.5)" stroke-width="1"/>
+        <line x1="30" y1="160" x2="150" y2="160" stroke="rgba(100,180,255,0.5)" stroke-width="1"/>
+        <line x1="150" y1="180" x2="290" y2="180" stroke="rgba(100,180,255,0.5)" stroke-width="1"/>
+        <!-- Door arcs -->
+        <path d="M 60 60 Q 60 90 90 90" stroke="rgba(100,180,255,0.6)" stroke-width="1" fill="none"/>
+        <line x1="60" y1="60" x2="90" y2="60" stroke="rgba(100,180,255,0.6)" stroke-width="1"/>
+        <path d="M 170 180 Q 170 210 200 210" stroke="rgba(200,16,46,0.7)" stroke-width="1" fill="none"/>
+        <line x1="170" y1="180" x2="200" y2="180" stroke="rgba(200,16,46,0.7)" stroke-width="1"/>
+        <!-- Windows -->
+        <rect x="30" y="95" width="0" height="30" stroke="rgba(100,180,255,0.8)" stroke-width="4"/>
+        <line x1="30" y1="95" x2="30" y2="125" stroke="rgba(100,180,255,0.8)" stroke-width="4"/>
+        <line x1="32" y1="100" x2="32" y2="120" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+        <line x1="35" y1="100" x2="35" y2="120" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+        <line x1="290" y1="100" x2="290" y2="130" stroke="rgba(100,180,255,0.8)" stroke-width="4"/>
+        <line x1="288" y1="105" x2="288" y2="125" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+        <!-- Dimension lines -->
+        <line x1="30" y1="280" x2="290" y2="280" stroke="rgba(200,16,46,0.6)" stroke-width="0.8"/>
+        <line x1="30" y1="276" x2="30" y2="284" stroke="rgba(200,16,46,0.6)" stroke-width="0.8"/>
+        <line x1="290" y1="276" x2="290" y2="284" stroke="rgba(200,16,46,0.6)" stroke-width="0.8"/>
+        <text x="160" y="275" font-size="9" fill="rgba(200,16,46,0.9)" font-family="monospace" text-anchor="middle">15.000</text>
+        <line x1="10" y1="60" x2="10" y2="260" stroke="rgba(200,16,46,0.6)" stroke-width="0.8"/>
+        <line x1="6" y1="60" x2="14" y2="60" stroke="rgba(200,16,46,0.6)" stroke-width="0.8"/>
+        <line x1="6" y1="260" x2="14" y2="260" stroke="rgba(200,16,46,0.6)" stroke-width="0.8"/>
+        <text x="5" y="165" font-size="9" fill="rgba(200,16,46,0.9)" font-family="monospace" text-anchor="middle" transform="rotate(-90,5,165)">10.000</text>
+        <!-- Room labels -->
+        <text x="88" y="118" font-size="8" fill="rgba(100,200,255,0.7)" font-family="monospace" text-anchor="middle">PHÒNG NGỦ</text>
+        <text x="88" y="218" font-size="8" fill="rgba(100,200,255,0.7)" font-family="monospace" text-anchor="middle">PHÒNG KHÁCH</text>
+        <text x="220" y="128" font-size="8" fill="rgba(100,200,255,0.7)" font-family="monospace" text-anchor="middle">BẾP + ĂN</text>
+        <text x="220" y="228" font-size="8" fill="rgba(100,200,255,0.7)" font-family="monospace" text-anchor="middle">VỆ SINH</text>
+        <!-- Title block -->
+        <rect x="30" y="300" width="260" height="44" stroke="rgba(100,180,255,0.3)" stroke-width="1" fill="rgba(100,180,255,0.04)"/>
+        <line x1="30" y1="316" x2="290" y2="316" stroke="rgba(100,180,255,0.2)" stroke-width="0.5"/>
+        <text x="38" y="311" font-size="7" fill="rgba(100,200,255,0.6)" font-family="monospace">DỰ ÁN: NHÀ Ở GIA ĐÌNH – MẶT BẰNG TẦNG 1</text>
+        <text x="38" y="328" font-size="7" fill="rgba(100,200,255,0.4)" font-family="monospace">TỈ LỆ: 1:100</text>
+        <text x="200" y="328" font-size="7" fill="rgba(200,16,46,0.7)" font-family="monospace">VIET CONSTRUCTION</text>
+        <text x="200" y="338" font-size="6" fill="rgba(100,200,255,0.4)" font-family="monospace">BẢN VẼ SỐ: VC-2024-001</text>
+        <!-- North arrow -->
+        <circle cx="275" cy="85" r="14" stroke="rgba(100,180,255,0.4)" stroke-width="1" fill="none"/>
+        <polygon points="275,71 269,89 275,85 281,89" fill="rgba(200,16,46,0.8)"/>
+        <text x="275" y="104" font-size="7" fill="rgba(100,200,255,0.6)" font-family="monospace" text-anchor="middle">N</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="quick-stats">
+  <div class="qs-item"><div class="qs-num">120+</div><div class="qs-label">Dự Án Được Thiết Kế</div></div>
+  <div class="qs-item"><div class="qs-num">15</div><div class="qs-label">Kiến Trúc Sư Có Chứng Chỉ</div></div>
+  <div class="qs-item"><div class="qs-num">7</div><div class="qs-label">Ngày Hoàn Thành Phác Thảo</div></div>
+  <div class="qs-item"><div class="qs-num">100%</div><div class="qs-label">Tư Vấn Lần Đầu Miễn Phí</div></div>
+</div>
+
+<!-- DỊCH VỤ THIẾT KẾ -->
+<section class="section">
+  <div class="reveal">
+    <div class="section-tag"><div class="section-tag-bar"></div><span class="section-tag-text">Các Dịch Vụ</span></div>
+    <h2 class="section-title">CHÚNG TÔI CUNG CẤP<br>NHỮNG GÌ?</h2>
+    <p class="section-desc">Từ ý tưởng ban đầu đến bộ hồ sơ bản vẽ hoàn chỉnh sẵn sàng thi công — chúng tôi xử lý mọi khía cạnh của quá trình thiết kế.</p>
+  </div>
+  <div class="design-grid">
+    <div class="design-card reveal reveal-delay-1">
+      <div class="dc-num">01</div>
+      <div class="dc-icon-wrap">📐</div>
+      <div class="dc-title">Thiết Kế Kiến Trúc</div>
+      <p class="dc-desc">Lập bản vẽ kiến trúc đầy đủ: mặt bằng, mặt cắt, mặt đứng, phối cảnh 3D và hồ sơ xin phép xây dựng theo quy định.</p>
+      <ul class="dc-list">
+        <li>Mặt bằng bố trí công năng tối ưu</li>
+        <li>Phối cảnh 3D ngoại thất & nội thất</li>
+        <li>Hồ sơ xin phép xây dựng đầy đủ</li>
+        <li>Tư vấn phong cách kiến trúc phù hợp</li>
+      </ul>
+    </div>
+    <div class="design-card reveal reveal-delay-2">
+      <div class="dc-num">02</div>
+      <div class="dc-icon-wrap">🏗️</div>
+      <div class="dc-title">Thiết Kế Kết Cấu</div>
+      <p class="dc-desc">Tính toán và thiết kế hệ kết cấu chịu lực: móng, cột, dầm, sàn, mái — đảm bảo an toàn và tối ưu vật liệu.</p>
+      <ul class="dc-list">
+        <li>Khảo sát địa chất, địa hình</li>
+        <li>Tính toán tải trọng, địa chấn</li>
+        <li>Bản vẽ kết cấu móng, khung</li>
+        <li>Thuyết minh tính toán đầy đủ</li>
+      </ul>
+    </div>
+    <div class="design-card reveal reveal-delay-3">
+      <div class="dc-num">03</div>
+      <div class="dc-icon-wrap">⚡</div>
+      <div class="dc-title">Thiết Kế Điện – Nước (M&E)</div>
+      <p class="dc-desc">Hệ thống cơ điện lạnh: điện dân dụng, cấp thoát nước, điều hòa không khí, PCCC, hệ thống thông minh (smart home).</p>
+      <ul class="dc-list">
+        <li>Điện chiếu sáng, điện nhẹ, camera</li>
+        <li>Cấp thoát nước, bể chứa, bơm</li>
+        <li>Điều hòa, thông gió cơ học</li>
+        <li>Hệ thống PCCC, báo cháy</li>
+      </ul>
+    </div>
+    <div class="design-card reveal reveal-delay-4">
+      <div class="dc-num">04</div>
+      <div class="dc-icon-wrap">🛋️</div>
+      <div class="dc-title">Thiết Kế Nội Thất</div>
+      <p class="dc-desc">Thiết kế nội thất toàn bộ hoặc từng phòng: concept mood board, bố trí nội thất, vật liệu hoàn thiện, ánh sáng trang trí.</p>
+      <ul class="dc-list">
+        <li>Mood board & concept thiết kế</li>
+        <li>Bố trí đồ nội thất chi tiết</li>
+        <li>Lựa chọn vật liệu, màu sắc</li>
+        <li>Bản vẽ thi công nội thất</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- GÓI DỊCH VỤ -->
+<section class="section gray">
+  <div class="reveal">
+    <div class="section-tag"><div class="section-tag-bar"></div><span class="section-tag-text">Gói Dịch Vụ</span></div>
+    <h2 class="section-title">CHỌN GÓI<br>PHÙ HỢP VỚI BẠN</h2>
+    <p class="section-desc">Chúng tôi cung cấp 3 gói thiết kế linh hoạt — từ cơ bản đến cao cấp, phù hợp với mọi quy mô và ngân sách.</p>
+  </div>
+  <div class="packages-grid">
+    <div class="pkg-card reveal reveal-delay-1">
+      <div class="pkg-header">
+        <div class="pkg-badge">Cơ Bản</div>
+        <div class="pkg-name">BASIC</div>
+        <div class="pkg-price">Từ 15.000.000 VNĐ</div>
+        <div class="pkg-price-note">cho nhà dưới 150m²</div>
+      </div>
+      <div class="pkg-divider"></div>
+      <div class="pkg-body">
+        <ul class="pkg-features">
+          <li>Thiết kế kiến trúc (2D)</li>
+          <li>Mặt bằng, mặt cắt, mặt đứng</li>
+          <li>1 phối cảnh 3D ngoại thất</li>
+          <li>Hồ sơ xin phép xây dựng</li>
+          <li>2 lần chỉnh sửa</li>
+          <li>Thời gian: 15–20 ngày</li>
+        </ul>
+      </div>
+      <a href="index.html#contact" class="pkg-cta ghost">Tìm Hiểu Thêm</a>
+    </div>
+    <div class="pkg-card featured reveal reveal-delay-2">
+      <div class="featured-star">★ Phổ biến nhất</div>
+      <div class="pkg-header">
+        <div class="pkg-badge outline">Tiêu Chuẩn</div>
+        <div class="pkg-name">STANDARD</div>
+        <div class="pkg-price">Từ 35.000.000 VNĐ</div>
+        <div class="pkg-price-note" style="color:rgba(255,255,255,0.4)">cho nhà 150–300m²</div>
+      </div>
+      <div class="pkg-divider"></div>
+      <div class="pkg-body">
+        <ul class="pkg-features">
+          <li>Kiến trúc + Kết cấu đầy đủ</li>
+          <li>Thiết kế điện, nước cơ bản</li>
+          <li>3 phối cảnh 3D (ngoại + nội thất)</li>
+          <li>Video walkthrough 3D</li>
+          <li>Hồ sơ xin phép đầy đủ</li>
+          <li>4 lần chỉnh sửa không giới hạn</li>
+          <li>Giám sát thi công giai đoạn đầu</li>
+          <li>Thời gian: 25–35 ngày</li>
+        </ul>
+      </div>
+      <a href="index.html#contact" class="pkg-cta featured-cta">Tư Vấn Ngay</a>
+    </div>
+    <div class="pkg-card reveal reveal-delay-3">
+      <div class="pkg-header">
+        <div class="pkg-badge" style="background:var(--gold)">Cao Cấp</div>
+        <div class="pkg-name">PREMIUM</div>
+        <div class="pkg-price">Liên hệ báo giá</div>
+        <div class="pkg-price-note">cho biệt thự, công trình lớn</div>
+      </div>
+      <div class="pkg-divider"></div>
+      <div class="pkg-body">
+        <ul class="pkg-features">
+          <li>Thiết kế toàn bộ (Kiến trúc + Kết cấu + M&E)</li>
+          <li>Nội thất toàn bộ công trình</li>
+          <li>Cảnh quan sân vườn</li>
+          <li>Phối cảnh 3D không giới hạn</li>
+          <li>Mô hình VR trải nghiệm thực tế</li>
+          <li>Chỉnh sửa không giới hạn</li>
+          <li>Giám sát toàn bộ quá trình thi công</li>
+          <li>Hỗ trợ sau bàn giao 12 tháng</li>
+        </ul>
+      </div>
+      <a href="index.html#contact" class="pkg-cta primary">Nhận Báo Giá</a>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="section">
+  <div class="reveal">
+    <div class="section-tag"><div class="section-tag-bar"></div><span class="section-tag-text">Công Trình Đã Thiết Kế</span></div>
+    <h2 class="section-title">MỘT SỐ DỰ ÁN<br>TIÊU BIỂU</h2>
+  </div>
+  <div class="portfolio reveal">
+    <div class="portfolio-item" style="background:linear-gradient(135deg,#d4dce6,#b8c4d0)">
+      <span class="pi-icon">🏛️</span>
+      <div class="pi-info">
+        <div class="pi-cat">Biệt Thự Cao Cấp</div>
+        <div class="pi-title">Villa Ivory – Thủ Đức</div>
+        <div class="pi-year">Thiết kế & Thi công · 2023</div>
+      </div>
+    </div>
+    <div class="portfolio-item" style="background:linear-gradient(135deg,#e0d4c8,#ccc0b0)">
+      <span class="pi-icon">🏠</span>
+      <div class="pi-info">
+        <div class="pi-cat">Nhà Phố</div>
+        <div class="pi-title">Nhà Anh Minh – Q.Bình Thạnh</div>
+        <div class="pi-year">Thiết kế · 2023</div>
+      </div>
+    </div>
+    <div class="portfolio-item" style="background:linear-gradient(135deg,#c8d4c8,#b4c4b4)">
+      <span class="pi-icon">🏢</span>
+      <div class="pi-info">
+        <div class="pi-cat">Văn Phòng</div>
+        <div class="pi-title">Văn Phòng TechViet – Q.7</div>
+        <div class="pi-year">Nội thất · 2024</div>
+      </div>
+    </div>
+    <div class="portfolio-item" style="background:linear-gradient(135deg,#d4c8d4,#c0b4c0)">
+      <span class="pi-icon">🌿</span>
+      <div class="pi-info">
+        <div class="pi-cat">Cảnh Quan</div>
+        <div class="pi-title">Sân Vườn Nhà Bà Lan – Gò Vấp</div>
+        <div class="pi-year">Cảnh quan · 2024</div>
+      </div>
+    </div>
+    <div class="portfolio-item" style="background:linear-gradient(135deg,#d4d0c8,#c0bcb0)">
+      <span class="pi-icon">🏡</span>
+      <div class="pi-info">
+        <div class="pi-cat">Nhà Ở</div>
+        <div class="pi-title">Nhà Phố Hiện Đại – Nhà Bè</div>
+        <div class="pi-year">Kiến trúc + Nội thất · 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-text">
+    <h2>BẮT ĐẦU VỚI<br>TƯ VẤN MIỄN PHÍ</h2>
+    <p>Đặt lịch tư vấn với kiến trúc sư của chúng tôi — hoàn toàn miễn phí, không ràng buộc. Chúng tôi lắng nghe và đưa ra giải pháp phù hợp nhất cho dự án của bạn.</p>
+  </div>
+  <div class="cta-actions">
+    <a href="index.html#contact" class="btn-white">Đặt Lịch Tư Vấn Miễn Phí</a>
+    <a href="xaydungdandung.html" class="btn-outline-white">Xem Dịch Vụ Xây Dựng →</a>
+  </div>
+</div>
+
+<footer>
+  <p>© 2024 HoangViet Construction JSC. Bảo lưu mọi quyền.</p>
+  <div class="footer-links">
+    <a href="index.html">Trang Chủ</a>
+    <a href="tu-van-thiet-ke.html">Tư Vấn Thiết Kế</a>
+    <a href="xaydungdandung.html">Xây Dựng Dân Dụng</a>
+    <a href="index.html#contact">Liên Hệ</a>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
